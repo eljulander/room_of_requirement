@@ -1,0 +1,9 @@
+{
+  "firebase": "room-of-requirement",
+  "public": "public",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
