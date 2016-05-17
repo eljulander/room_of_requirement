@@ -1,0 +1,45 @@
+{
+    "courses": {
+        "CIT 230": {
+            "is-checked-out": true,
+            "employee-checker": "Andrew Gremlich",
+            "links": {
+                "il3-link": "http://byui.brightspace.com",
+                "equella-link": "http://content.byui.edu"
+            },
+            "dir": {
+                "ocr": {
+                    "name": "John Smith",
+                    "email": "red@byui.edu"
+                },
+                "course-lead": {
+                    "name": "Jane Doe",
+                    "email": "red@byui.edu"
+                }
+            },
+            "exports": {
+                "il3": false,
+                "box": false
+            },
+            "workers-log": {
+                "Andrew Gremlich": {
+                    "DATE": {
+                        "submission": "I DID THIS."
+                    }
+                },
+                "Eric Julander": {
+                    "DATE": {
+                        "submission": "I DID THIS."
+                    }
+                }
+            }
+        }
+    },
+    "mark-report": {
+        "CIT 230": {
+            "some-complex-data-thing": {
+                "more-complex-data-thing": "blue"
+            }
+        }
+    }
+}
