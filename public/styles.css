@@ -19,6 +19,10 @@ p {
     font-size: 19px;
 }
 
+article {
+    cursor: pointer;
+}
+
 nav {
     position: absolute;
     width: 200px;

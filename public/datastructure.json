@@ -20,18 +20,6 @@
             "exports": {
                 "il3": false,
                 "box": false
-            },
-            "workers-log": {
-                "Andrew Gremlich": {
-                    "DATE": {
-                        "submission": "I DID THIS."
-                    }
-                },
-                "Eric Julander": {
-                    "DATE": {
-                        "submission": "I DID THIS."
-                    }
-                }
             }
         }
     },
@@ -41,5 +29,23 @@
                 "more-complex-data-thing": "blue"
             }
         }
+    },
+    "workers-log": {
+        "CIT 230": {
+            "PUSH_ID": {
+                "submitter-uid": "UID",
+                "comment": "Blue!",
+                "time-stamp": "12394540598"
+            }
+        }
+    },
+    "users": {
+        "CIT 230": {
+            "uid": {
+            "user-name": "Andrew Gremlich",
+            "user-email": "andrew.gremlich@gmail.com",
+            "user-pic": "pic"
+        }
     }
+}
 }
