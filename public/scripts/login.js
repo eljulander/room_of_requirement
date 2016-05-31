@@ -18,9 +18,9 @@
           // This gives you a Google Access Token. You can use it to access the Google API.
           var token = result.credential.accessToken;
 
-          document.getElementById('quickstart-oauthtoken').textContent = token;
+          console.log(token);
         } else {
-          document.getElementById('quickstart-oauthtoken').textContent = 'null';
+          console.log('token null');
         }
         var user = result.user;
       }).catch(function(error) {
@@ -45,9 +45,8 @@
               refreshToken = user.refreshToken,
               providerData = user.providerData;
 
-          document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
           document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-          document.getElementById('quickstart-account-details').textContent = JSON.stringify({
+          console.log({
             displayName: displayName,
             email: email,
             emailVerified: emailVerified,
@@ -58,15 +57,13 @@
             providerData: providerData
           }, null, '  ');
         } else {
-          document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
           document.getElementById('quickstart-sign-in').textContent = 'Sign in with Google';
-          document.getElementById('quickstart-account-details').textContent = 'null';
-          document.getElementById('quickstart-oauthtoken').textContent = 'null';
         }
         document.getElementById('quickstart-sign-in').disabled = false;
       });
       document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
     }
+
     window.onload = function() {
       initApp();
     };
