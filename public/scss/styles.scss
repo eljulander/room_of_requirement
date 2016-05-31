@@ -1,7 +1,25 @@
 @import "./reset/reset";
 
 $grey: #F0F0F0;
+$grey-border: #dcdcdc;
 
 body {
     background-color: $grey;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+button {
+    font-family: "Helvetica", "Century Gothic", sans-serif;
+}
+
+button {
+    background-color: $grey;
+    border: $grey-border 2px solid;
+    padding: 5px;
 }
