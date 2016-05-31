@@ -7,6 +7,28 @@ body {
     background-color: $grey;
 }
 
+main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: flex-start;
+    width: 100%;
+}
+
+article {
+    width: 80%;
+}
+
+section {
+    height: 200px;
+    width: 100%;
+}
+
+nav {
+    width: 15%;
+}
+
 h1,
 h2,
 h3,
@@ -22,4 +44,9 @@ button {
     background-color: $grey;
     border: $grey-border 2px solid;
     padding: 5px;
+}
+
+.login:active {
+    background-color: $grey-border;
+    border: $grey 2px solid;
 }
