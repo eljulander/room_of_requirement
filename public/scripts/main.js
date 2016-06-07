@@ -5,14 +5,11 @@
         course_details;
 
     function generateCoursePreview(id, details) {
-        var header = wand.crtElm("h2", id);
-        console.log(header);
         var section = wand.crtElm("section");
+        var header = wand.crtElm("h2", `Project Number ${id}`);
         wand.apndr(section, header);
-        console.log(section);
 
         wand.querApndr("main article", section);
-        console.log(id, details);
     }
 
     database.ref("Mark's Tool").on("child_added", function (snap) {
