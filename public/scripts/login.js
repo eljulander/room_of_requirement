@@ -13,8 +13,16 @@
         document.getElementById('quickstart-sign-in').disabled = true;
     }
 
-    function initApp() {
+    var displayName,
+        email,
+        emailVerified,
+        photoURL,
+        isAnonymous,
+        uid,
+        refreshToken,
+        providerData;
 
+    function initApp() {
         firebase.auth().getRedirectResult().then(function (result) {
             if (result.credential) {
                 // This gives you a Google Access Token. You can use it to access the Google API.
@@ -38,17 +46,17 @@
         });
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                var displayName = user.displayName,
-                    email = user.email,
-                    emailVerified = user.emailVerified,
-                    photoURL = user.photoURL,
-                    isAnonymous = user.isAnonymous,
-                    uid = user.uid,
-                    refreshToken = user.refreshToken,
-                    providerData = user.providerData;
+                displayName = user.displayName;
+                email = user.email;
+                emailVerified = user.emailVerified;
+                photoURL = user.photoURL;
+                isAnonymous = user.isAnonymous;
+                uid = user.uid;
+                refreshToken = user.refreshToken;
+                providerData = user.providerData;
 
                 document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-                console.log({
+                database.ref(`users/${uid}`).update({
                     displayName: displayName,
                     email: email,
                     emailVerified: emailVerified,

@@ -1,12 +1,15 @@
 @import "./reset/reset";
 
-$grey: #F0F0F0;
+/****VARIABLES****/
+$grey: #efefef;
 $grey-border: #dcdcdc;
+$grey-2px-border: $grey 2px solid;
 
 body {
     background-color: $grey;
 }
 
+/*****MAIN*****/
 main {
     display: flex;
     flex-direction: row;
@@ -14,21 +17,41 @@ main {
     justify-content: center;
     align-content: flex-start;
     width: 100%;
+    margin-top: 10px;
+    article {
+        width: 80%;
+        section {
+            height: 50px;
+            width: 100%;
+            h2 {
+                font-size: 30px;
+            }
+        }
+    }
+    nav {
+        width: 15%;
+    }
 }
 
-article {
-    width: 80%;
-}
-
-section {
-    height: 200px;
-    width: 100%;
-}
-
+/****Navigation****/
 nav {
-    width: 15%;
+    button {
+        background-color: $grey;
+        border: $grey-border 2px solid;
+        padding: 5px;
+        display: block;
+        margin-bottom: 20px;
+        &:hover {
+            background-color: $grey-border;
+        }
+        &:active {
+            background-color: $grey-border;
+            border: $grey-2px-border;
+        }
+    }
 }
 
+/*Font family*/
 h1,
 h2,
 h3,
@@ -37,16 +60,5 @@ h5,
 h6,
 p,
 button {
-    font-family: "Helvetica", "Century Gothic", sans-serif;
-}
-
-.login {
-    background-color: $grey;
-    border: $grey-border 2px solid;
-    padding: 5px;
-}
-
-.login:active {
-    background-color: $grey-border;
-    border: $grey 2px solid;
+    font-family: "Helvetica", sans-serif;
 }

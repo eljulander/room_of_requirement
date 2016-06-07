@@ -1,9 +1,9 @@
 var config = {
-    apiKey: "AIzaSyCBNNxQ8ewVWXxMUFYXmGAGTv0IQ3ejje0",
-    authDomain: "room-of-requirement.firebaseapp.com",
-    databaseURL: "https://room-of-requirement.firebaseio.com",
-    storageBucket: "firebase-room-of-requirement.appspot.com",
-  };
+    apiKey: "AIzaSyCRfRp20kEkpwO1Bs30sDyBkC4Qf-rsuNM",
+    authDomain: "course-file-auditor.firebaseapp.com",
+    databaseURL: "https://course-file-auditor.firebaseio.com",
+    storageBucket: "course-file-auditor.appspot.com",
+};
 firebase.initializeApp(config);
 
 var database = firebase.database();
