@@ -34,6 +34,13 @@ main {
                 width: 700px;
             }
         }
+        #todo {
+            background-color: #cdcdcd;
+            width: 700px;
+            padding: 20px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
     }
     nav {
         width: 15%;
@@ -66,6 +73,11 @@ h4,
 h5,
 h6,
 p,
-button {
+button,
+label{
     font-family: "Helvetica", sans-serif;
+}
+
+label {
+    display: block;
 }

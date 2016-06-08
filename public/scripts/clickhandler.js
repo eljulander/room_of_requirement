@@ -11,20 +11,54 @@
     }
 
     function loadContentTodo(cp) {
+        var todoContain = wand.crtElm("div");
+        todoContain.id = "todoContain";
+
         for (var i in cp) {
-            console.log(cp[i]);
-            wand.querApndr("article", "p", i);
+
+            var h3 = wand.crtElm("h3", i),
+                todo = wand.crtElm("div"),
+                divsub = wand.crtElm("div");
+
+            todo.id = "todo";
+            divsub.id = "details";
+
+            for (var j in cp[i]) {
+                console.log(cp[i][j], j, cp[i]);
+
+                var subp = wand.crtElm("label", `${j} | `),
+                    input = wand.crtElm("input"),
+                    numLinks = wand.txt(` ${cp[i][j]['Links Broken']} broken Links | `)
+
+                input.type = "checkbox";
+
+                wand.apndr(subp, numLinks);
+                wand.apndr(subp, input);
+                wand.apndr(divsub, subp);
+            }
+
+            wand.apndr(todo, h3);
+            wand.apndr(todoContain, todo);
+            wand.apndr(todoContain, divsub);
+            wand.querApndr("article", todoContain);
         }
     }
 
     function quizLoad(q) {
         if (q === "There is nothing here!") {
-            wand.querApndr("article", "h1", q)
+            wand.querApndr("article", "h1", `Quizzes are okay! ${q}`)
+        } else {
+            console.log("Load a quiz table for the conversion!")
         }
     }
 
     function disLink(l) {
-        wand.querApndr("article", "h1", l)
+        var link = wand.crtElm("a", "IL3 Link"),
+            para = wand.crtElm("p");
+        link.href = l;
+        wand.apndr(para, link);
+
+        wand.querApndr("article", para);
     }
 
     function displayDetails(cd) {
@@ -32,10 +66,6 @@
         disLink(cd.Link);
         quizLoad(cd.Quizzes);
         loadContentTodo(cd["Content Pages"]);
-    }
-
-    function clearArticle() {
-        article.innerHTML = "";
     }
 
     function loadCourseDetails(e) {
@@ -46,6 +76,10 @@
             courseDetails = snap.val();
             displayDetails(courseDetails);
         })
+    }
+
+    function clearArticle() {
+        article.innerHTML = "";
     }
 
     document.onclick = function (e) {
