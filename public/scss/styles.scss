@@ -1,15 +1,17 @@
 @import "./reset/reset";
 
 /****VARIABLES****/
+
 $grey: #efefef;
 $grey-border: #dcdcdc;
 $grey-2px-border: $grey 2px solid;
-
 body {
     background-color: $grey;
 }
 
+
 /*****MAIN*****/
+
 main {
     display: flex;
     flex-direction: row;
@@ -20,6 +22,10 @@ main {
     margin-top: 10px;
     article {
         width: 80%;
+        p {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
         section {
             height: 50px;
             width: 100%;
@@ -27,19 +33,31 @@ main {
                 font-size: 30px;
                 font-weight: 100;
             }
-            .courseTitle{
+            .courseTitle {
                 cursor: pointer;
                 background-color: #82c8ce;
                 padding: 15px;
                 width: 700px;
             }
         }
-        #todo {
-            background-color: #cdcdcd;
+        #todoContain {
             width: 700px;
-            padding: 20px;
-            margin-bottom: 10px;
             cursor: pointer;
+            #todo h3 {
+                background-color: #cdcdcd;
+                padding: 20px;
+                &:hover{
+                    background-color: #bebebe;
+                }
+            }
+            #details {
+                background-color: #ec9e9e;
+                padding: 20px;
+                label {
+                    margin-top: 5px;
+                    margin-bottom: 5px;
+                }
+            }
         }
     }
     nav {
@@ -47,7 +65,9 @@ main {
     }
 }
 
+
 /****Navigation****/
+
 nav {
     button {
         background-color: $grey;
@@ -65,7 +85,9 @@ nav {
     }
 }
 
+
 /*Font family*/
+
 h1,
 h2,
 h3,
@@ -74,7 +96,7 @@ h5,
 h6,
 p,
 button,
-label{
+label {
     font-family: "Helvetica", sans-serif;
 }
 

@@ -22,10 +22,13 @@
 
             todo.id = "todo";
             divsub.id = "details";
+            divsub.setAttribute("display", "false");
+
+            if (divsub.getAttribute("display") === "false") {
+                divsub.style.display = "none";
+            }
 
             for (var j in cp[i]) {
-                console.log(cp[i][j], j, cp[i]);
-
                 var subp = wand.crtElm("label", `${j} | `),
                     input = wand.crtElm("input"),
                     numLinks = wand.txt(` ${cp[i][j]['Links Broken']} broken Links | `)
@@ -46,7 +49,7 @@
 
     function quizLoad(q) {
         if (q === "There is nothing here!") {
-            wand.querApndr("article", "h1", `Quizzes are okay! ${q}`)
+            wand.querApndr("article", "p", `Quizzes are okay! ${q}`)
         } else {
             console.log("Load a quiz table for the conversion!")
         }
@@ -88,7 +91,9 @@
             buttonlocal = e.target.localName === "button",
             home = e.target.innerText.indexOf("Home") > -1,
             profile = e.target.innerText.indexOf("Profile") > -1,
-            stats = e.target.innerText.indexOf("Stats") > -1;
+            stats = e.target.innerText.indexOf("Stats") > -1,
+            h3local = e.target.localName,
+            lessonNum = e.target.innerText.indexOf("Lesson") > -1;
 
         if (project && h2local) {
             console.log("Project Clicked!");
@@ -106,6 +111,16 @@
             console.log("Stats clicked!");
             clearArticle();
             loadStats();
+        } else if (h3local && lessonNum) {
+            var nextSib = e.target.parentElement.nextElementSibling,
+                disBool = nextSib.getAttribute("display");
+            if (disBool === "false") {
+                nextSib.style.display = "block";
+                nextSib.setAttribute("display", "true");
+            } else if (disBool === "true") {
+                nextSib.style.display = "none";
+                nextSib.setAttribute("display", "false");
+            }
         } else {
             return;
         }
