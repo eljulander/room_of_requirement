@@ -3,10 +3,12 @@
 
     var navig = {
         home: "Home",
-        profile: `My Profile`
+        profile: "My Profile",
+        stats: "Stats"
     }
 
-    wand.querApndr("nav", "button", navig.home);
-    wand.querApndr("nav", "button", navig.profile);
+    for (var i in navig) {
+        wand.querApndr("nav", "button", navig[i]);
+    }
 
 }());

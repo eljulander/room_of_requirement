@@ -7,6 +7,7 @@
     function generateCoursePreview(id, details) {
         var section = wand.crtElm("section");
         var header = wand.crtElm("h2", `Project Number ${id}`);
+            header.className = "courseTitle";
         wand.apndr(section, header);
 
         wand.querApndr("main article", section);
