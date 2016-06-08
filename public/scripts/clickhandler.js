@@ -10,7 +10,32 @@
         wand.querApndr("article", "h1", "Stats want to be seen?  Not yet!");
     }
 
-    function loadContentTodo(cp) {
+    function loadChecked(input, searchQuer) {
+        database.ref(searchQuer).once("value", function (snap) {
+            var personalData = snap.val();
+            if (personalData.Checked === "False") {
+                input.checked = false;
+            } else if (personalData.Checked === "True") {
+                input.checked = true;
+            }
+        })
+
+        input.onclick = function (e) {
+            if (input.checked === false) {
+                console.log(false);
+                database.ref(searchQuer).update({
+                    "Checked": "False",
+                })
+            } else if (input.checked === true) {
+                console.log(input, searchQuer);
+                database.ref(searchQuer).update({
+                    "Checked": "True",
+                })
+            }
+        };
+    }
+
+    function loadContentTodo(cp, cn) {
         var todoContain = wand.crtElm("div");
         todoContain.id = "todoContain";
 
@@ -31,9 +56,12 @@
             for (var j in cp[i]) {
                 var subp = wand.crtElm("label", `${j} | `),
                     input = wand.crtElm("input"),
-                    numLinks = wand.txt(` ${cp[i][j]['Links Broken']} broken Links | `)
+                    numLinks = wand.txt(` ${cp[i][j]['Links Broken']} broken Links | `),
+                    searchQuer = `Mark's Tool/${cn}/Content Pages/${i}/${j}`;
 
                 input.type = "checkbox";
+
+                loadChecked(input, searchQuer);
 
                 wand.apndr(subp, numLinks);
                 wand.apndr(subp, input);
@@ -64,11 +92,10 @@
         wand.querApndr("article", para);
     }
 
-    function displayDetails(cd) {
-        console.log(cd);
+    function displayDetails(cd, cn) {
         disLink(cd.Link);
         quizLoad(cd.Quizzes);
-        loadContentTodo(cd["Content Pages"]);
+        loadContentTodo(cd["Content Pages"], cn);
     }
 
     function loadCourseDetails(e) {
@@ -77,12 +104,22 @@
 
         database.ref(`Mark's Tool/${courseNum}`).once("value", function (snap) {
             courseDetails = snap.val();
-            displayDetails(courseDetails);
+            displayDetails(courseDetails, courseNum);
         })
     }
 
     function clearArticle() {
         article.innerHTML = "";
+    }
+
+    function dropdown(disBool, nextSib) {
+        if (disBool === "false") {
+            nextSib.style.display = "block";
+            nextSib.setAttribute("display", "true");
+        } else if (disBool === "true") {
+            nextSib.style.display = "none";
+            nextSib.setAttribute("display", "false");
+        }
     }
 
     document.onclick = function (e) {
@@ -93,7 +130,8 @@
             profile = e.target.innerText.indexOf("Profile") > -1,
             stats = e.target.innerText.indexOf("Stats") > -1,
             h3local = e.target.localName,
-            lessonNum = e.target.innerText.indexOf("Lesson") > -1;
+            lessonNum = e.target.innerText.indexOf("Lesson") > -1,
+            checked = e.target.type === "checkbox";
 
         if (project && h2local) {
             console.log("Project Clicked!");
@@ -114,13 +152,7 @@
         } else if (h3local && lessonNum) {
             var nextSib = e.target.parentElement.nextElementSibling,
                 disBool = nextSib.getAttribute("display");
-            if (disBool === "false") {
-                nextSib.style.display = "block";
-                nextSib.setAttribute("display", "true");
-            } else if (disBool === "true") {
-                nextSib.style.display = "none";
-                nextSib.setAttribute("display", "false");
-            }
+            dropdown(disBool, nextSib);
         } else {
             return;
         }
