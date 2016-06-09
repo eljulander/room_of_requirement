@@ -9,6 +9,18 @@
         "source": "**",
         "destination": "/index.html"
       }
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "public/scss/**/*.scss",
+      "public/scripts/**/*.js",
+      "datastructure.json",
+      "gulpfile.js",
+      "package.json",
+      "README.md",
+      "server.js"
     ]
   }
 }

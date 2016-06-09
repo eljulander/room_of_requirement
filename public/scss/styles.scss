@@ -29,6 +29,7 @@ main {
         section {
             height: 50px;
             width: 100%;
+            margin-bottom: 40px;
             h2 {
                 font-size: 30px;
                 font-weight: 100;
@@ -38,6 +39,9 @@ main {
                 background-color: #82c8ce;
                 padding: 15px;
                 width: 700px;
+                &:hover {
+                    background-color: #74b2b7;
+                }
             }
         }
         #todoContain {
@@ -46,7 +50,7 @@ main {
             #todo h3 {
                 background-color: #cdcdcd;
                 padding: 10px;
-                &:hover{
+                &:hover {
                     background-color: #bebebe;
                 }
             }

@@ -130,8 +130,10 @@
             profile = e.target.innerText.indexOf("Profile") > -1,
             stats = e.target.innerText.indexOf("Stats") > -1,
             h3local = e.target.localName,
-            lessonNum = e.target.innerText.indexOf("Lesson") > -1,
+            lessonNum = e.target.innerText.indexOf("Lesson") > -1 || e.target.innerText.indexOf("Module") > -1 || e.target.innerText.indexOf("Welcome") > -1,
             checked = e.target.type === "checkbox";
+
+            console.log(h3local, lessonNum);
 
         if (project && h2local) {
             console.log("Project Clicked!");
