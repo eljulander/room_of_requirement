@@ -22,5 +22,8 @@
         });
     }
 
-    window.onload = window.startCourseLoad;
+    window.onload = function() {
+        window.startCourseLoad();
+        initApp();
+    }
 }(window));
