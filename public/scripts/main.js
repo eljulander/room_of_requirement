@@ -1,19 +1,16 @@
-(function (window) {
-    'use strict';
-
     var course_id,
         course_details;
 
     function generateCoursePreview(id, details) {
-        var section = wand.crtElm("section");
-        var header = wand.crtElm("h2", `Project Number ${id}`);
-        header.className = "courseTitle";
-        wand.apndr(section, header);
+        var section = $("<section></section"),
+            header = $(`<h2>Project Number ${id}</h2>`).addClass("courseTitle");
 
-        wand.querApndr("main article", section);
+        $(section).append(header);
+
+        $("main article").append(section);
     }
 
-    window.startCourseLoad = function () {
+    function startCourseLoad() {
         database.ref("Mark's Tool").once("value", function (snap) {
             snap.forEach(function (csnap) {
                 course_details = csnap.val();
@@ -23,8 +20,7 @@
         });
     }
 
-    window.onload = function () {
-        window.startCourseLoad();
+    $(document).ready(function() {
+        startCourseLoad();
         initApp();
-    }
-}(window));
+    });

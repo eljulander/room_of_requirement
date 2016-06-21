@@ -1,3 +1,4 @@
+/*
 (function () {
     'use strict';
     var article = wand.querApndr("article");
@@ -160,3 +161,4 @@
         }
     };
 }());
+*/
