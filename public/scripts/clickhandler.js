@@ -1,14 +1,15 @@
-/*
 (function () {
     'use strict';
-    var article = wand.querApndr("article");
+    var article = $("article");
 
     function loadProfile() {
-        wand.querApndr("article", "h1", "Profile want to be seen?  Not yet!");
+        var profileh1 = $("<h1>Profile want to be seen?  Not yet!</h1>");
+        $(article).append(profileh1);
     }
 
     function loadStats() {
-        wand.querApndr("article", "h1", "Stats want to be seen?  Not yet!");
+        var statsh1 = $("<h1>Stats want to be seen?  Not yet!</h1>");
+        $(article).append(statsh1);
     }
 
     function loadChecked(input, searchQuer) {
@@ -37,20 +38,16 @@
     }
 
     function loadContentTodo(cp, cn) {
-        var todoContain = wand.crtElm("div");
-        todoContain.id = "todoContain";
+        var todoContain = $("<div></div>").attr("id", "todoContain");
 
         for (var i in cp) {
 
-            var h3 = wand.crtElm("h3", i),
-                todo = wand.crtElm("div"),
-                divsub = wand.crtElm("div");
+            var h3 = $(`<h3>${i}</h3>`),
+                todo = $("<div></div>").attr("id", "todo"),
+                divsub = $("<div></div>").attr("id", "details").attr("display", "false");
 
-            todo.id = "todo";
-            divsub.id = "details";
-            divsub.setAttribute("display", "false");
-
-            if (divsub.getAttribute("display") === "false") {
+            /*TRANSLATE INTO JQUERY*/
+            /*if (divsub.getAttribute("display") === "false") {
                 divsub.style.display = "none";
             }
 
@@ -72,25 +69,25 @@
             wand.apndr(todo, h3);
             wand.apndr(todoContain, todo);
             wand.apndr(todoContain, divsub);
-            wand.querApndr("article", todoContain);
+            wand.querApndr("article", todoContain);*/
         }
     }
 
     function quizLoad(q) {
         if (q === "There is nothing here!") {
-            wand.querApndr("article", "p", `Quizzes are okay! ${q}`)
+            $(article).append(`<p>Quizzes are okay! ${q}</p>`);
         } else {
             console.log("Load a quiz table for the conversion!")
         }
     }
 
     function disLink(l) {
-        var link = wand.crtElm("a", "IL3 Link"),
-            para = wand.crtElm("p");
-        link.href = l;
-        wand.apndr(para, link);
+        var link = $("<a>IL3 Link</a>").attr('href', l),
+            para = $("<p></p>");
 
-        wand.querApndr("article", para);
+        $(para).append(link);
+
+        $(article).append(para);
     }
 
     function displayDetails(cd, cn) {
@@ -134,8 +131,6 @@
             lessonNum = e.target.innerText.indexOf("Lesson") > -1 || e.target.innerText.indexOf("Module") > -1 || e.target.innerText.indexOf("Welcome") > -1,
             checked = e.target.type === "checkbox";
 
-            console.log(h3local, lessonNum);
-
         if (project && h2local) {
             console.log("Project Clicked!");
             clearArticle();
@@ -161,4 +156,3 @@
         }
     };
 }());
-*/
