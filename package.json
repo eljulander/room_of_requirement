@@ -23,6 +23,7 @@
     "gulp-uglify": "^1.5.3"
   },
   "dependencies": {
+    "push.js": "0.0.9",
     "static-server": "^2.0.0"
   }
 }
