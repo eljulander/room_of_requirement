@@ -60,3 +60,21 @@ button {
     border: 0;
     cursor: pointer;
 }
+
+/*Font family*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+button,
+label {
+    font-family: "Helvetica", "Century Gothic", sans-serif;
+}
+
+label {
+    display: block;
+}

@@ -2,10 +2,26 @@
 <html lang="en-us">
 
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room of Requirement</title>
     <link rel="stylesheet" href="/dist/styles.css" type="text/css">
+
+    <!--SCRIPT RESOURCES-->
+    <!--JQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <!-- React -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <!-- Firebase 3.0-->
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <!-- Firebase OAuth-->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!-- ReactFire -->
+    <script src="https://cdn.firebase.com/libs/reactfire/1.0.0/reactfire.min.js"></script>
+
 </head>
 
 <body>
@@ -17,20 +33,14 @@
 
         <nav>
             <button disabled class="login" id="quickstart-sign-in">Sign in with Google</button>
+            <div id="naver"></div>
         </nav>
     </main>
 
     <footer>
-        <!-- Firebase 3.0-->
-        <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-        <!-- Firebase OAuth-->
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
-        <!--JQuery-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
         <!-- Localhosting-->
         <script src="/dist/scripts.js"></script>
         <script src="http://localhost:35729/livereload.js"></script>
-
     </footer>
 
 </body>

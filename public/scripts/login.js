@@ -73,3 +73,7 @@
         });
         document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
     }
+
+    $(document).ready(function () {
+        initApp();
+    });
