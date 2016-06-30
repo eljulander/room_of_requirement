@@ -15,15 +15,6 @@
         document.getElementById('quickstart-sign-in').disabled = true;
     }
 
-    var displayName,
-        email,
-        emailVerified,
-        photoURL,
-        isAnonymous,
-        uid,
-        refreshToken,
-        providerData;
-
     function initApp() {
         firebase.auth().getRedirectResult().then(function (result) {
             if (result.credential) {
@@ -57,7 +48,7 @@
                 }
 
                 document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-                database.ref(`users/${uid}`).update({
+                database.ref(`users/${authO.uid}`).update({
                     displayName: authO.displayName,
                     email: authO.email,
                     emailVerified: authO.emailVerified,
