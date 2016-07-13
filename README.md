@@ -1,8 +1,6 @@
 # Room of Requirement
 
-Room of Requirement is a custom transfer management system made to handle the transfer of content from Brightspace to Equella CMS.
-
-## Uses
+This was a proof of concept to see how to make a management system for the BYU-Idaho IL3 Transition Team. 
 
 ### Note
 
