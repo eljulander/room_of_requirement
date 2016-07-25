@@ -36,7 +36,7 @@ gulp.task('styles', function () {
 //Scripts
 gulp.task('scripts', function() {
     console.log("scripts task");
-    return gulp.src(['public/scripts/config.js', 'public/scripts/login.js', 'public/scripts/main.js', SCRIPTS_PATH])
+    return gulp.src(['public/scripts/config.js','public/scripts/course_name.js', 'public/scripts/login.js', 'public/scripts/main.js', SCRIPTS_PATH])
         .pipe(plumber(function(err) {
             console.log('Scripts Task Error ' + err);
             this.emit('end');

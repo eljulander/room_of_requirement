@@ -1,6 +1,6 @@
 (function () {
 
-    var authData = JSON.parse(localStorage['ManagementAuthO']),
+    var authData = JSON.parse(localStorage['ManagementAuthO']) || "",
         role,
         nav = $("nav"),
         homeButton = $("<button>Home</button>"),

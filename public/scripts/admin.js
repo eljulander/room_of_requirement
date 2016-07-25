@@ -1,7 +1,6 @@
 /*
 database is a global variable
 */
-
 (function () {
 
     /*
@@ -9,50 +8,58 @@ database is a global variable
     */
     $("a").click(function (e) {
         var classID = e.target.className;
-
         $(`#${classID}`).css({
             "display": "block"
         })
-
         $(`#shade`).css({
             "display": "block"
         })
-    })
+    });
 
     $(".cancel").click(function (e) {
         var parent = e.target.parentElement;
-
         $(parent).css({
             "display": "none",
         })
-
         $('#shade').css({
             "display": "none",
         })
-    })
+    });
 
     /*
     Runs the data for the checked Modal
     */
 
     function userSelect() {
-        database.ref("users").once("value", function(snap){
-            snap.forEach(function(csnap){
-                console.log(csnap.val().displayName)
+        var select = $("<select></select>");
+
+        database.ref("users").once("value", function (snap) {
+            snap.forEach(function (csnap) {
+                var name = csnap.val().displayName,
+                    option = $(`<option>${name}</option>`);
+
+                select.append(option);
             })
-        })
+        });
+
+        return select;
     }
 
     function populateCheckout(cd, cn) {
+
+        console.log(corrData);
+
         var populate = $("#unassigned"),
             container = $("<div id='assignmentContainer'></div>"),
-            courseNum = $(`<p><a href="${cd['Link']}">${cn}</a></p>`);
+            courseNum = $(`<p><a href="${cd['Link']}">${cn}</a></p>`),
+            select = userSelect();
 
         container.append(courseNum);
+        container.append(select);
 
         populate.append(container);
 
-        console.log(cd, cn);
+        //        console.log(cd, cn);
     }
 
     function checked() {
