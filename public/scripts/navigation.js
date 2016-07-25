@@ -18,7 +18,7 @@
         adminButton = $("<button>Admin</button>");
 
         if (role >= 8) {
-            console.log("admin");
+            console.log("User logged in is Administrator");
 
             adminButton.click(function (e) {
                 console.log("li")

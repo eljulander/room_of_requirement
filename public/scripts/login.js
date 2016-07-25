@@ -40,7 +40,7 @@
                 location.reload();
                 console.log(token);
             } else {
-                console.log('token null');
+//                console.log('token null');
             }
             var user = result.user;
         }).catch(function (error) {

@@ -16,6 +16,7 @@
     <!-- Firebase OAuth-->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>
 </head>
 
 <body>
@@ -30,11 +31,36 @@
 
             <h1>Equella Administration</h1>
 
-            <h2>Currently Checked Out</h2>
+            <h2><a class="checked" href="#">Check Out</a></h2>
 
-            <h2>Time Spent</h2>
+            <div id="checked" data-modal="checked">
+                <p class="cancel">&times;</p>
+                <h3>Assignments</h3>
+                <h3>Checked Out</h3>
+            </div>
 
-            <h2>Statistics</h2>
+            <h2><a class="finished" href="#">Finished</a></h2>
+
+            <div id="finished" data-modal="finished">
+                <p class="cancel">&times;</p>
+                <h3>Recently Completed</h3>
+                <h3>Approved</h3>
+            </div>
+
+            <h2><a class="stats" href="#">Statistics</a></h2>
+
+            <div id="stats" data-modal="stats">
+                <p class="cancel">&times;</p>
+                <div id="dataSaved">
+                    <canvas data-name="dataSaved"></canvas>
+                </div>
+
+                <div id="timeSpent">
+                    <canvas data-name="timeSpent"></canvas>
+                </div>
+            </div>
+
+            <div id="shade"></div>
 
         </article>
 
