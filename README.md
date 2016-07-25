@@ -1,8 +1,6 @@
 # Room of Requirement
 
-Room of Requirement is a custom management system to help direct projects and team.
-
-## Uses
+This was a proof of concept to see how to make a management system for the BYU-Idaho IL3 Transition Team. 
 
 ### Note
 
