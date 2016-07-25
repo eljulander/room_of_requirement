@@ -34,8 +34,41 @@ database is a global variable
     /*
     Runs the data for the checked Modal
     */
+
+    function userSelect() {
+        database.ref("users").once("value", function(snap){
+            snap.forEach(function(csnap){
+                console.log(csnap.val().displayName)
+            })
+        })
+    }
+
+    function populateCheckout(cd, cn) {
+        var populate = $("#unassigned"),
+            container = $("<div id='assignmentContainer'></div>"),
+            courseNum = $(`<p><a href="${cd['Link']}">${cn}</a></p>`);
+
+        container.append(courseNum);
+
+        populate.append(container);
+
+        console.log(cd, cn);
+    }
+
     function checked() {
-        console.log("checked");
+
+        database.ref("Mark's Tool").once("value", function (snap) {
+            snap.forEach(function (csnap) {
+                var courseData = csnap.val(),
+                    courseName = csnap.key,
+                    nothing = "There is nothing here!";
+
+                if (courseData["Content Pages"] !== nothing || courseData["Quizzes"] !== nothing) {
+                    populateCheckout(courseData, courseName);
+                }
+            })
+        })
+
     }
 
     /*
