@@ -1,31 +1,45 @@
-@import "./reset/reset";
+@import "./reset/_reset.scss";
+@import "./reset/_admin.scss";
+@import "./reset/_nav.scss";
 
 /****VARIABLES****/
 
 $grey: #efefef;
 $grey-border: #dcdcdc;
+
+/******RULES*****/
 body {
     background-color: $grey;
 }
 
-/*****MAIN*****/
-
-/*
 main {
-
+    display: flex;
 }
-*/
 
+article {
+    margin-left: 30px;
+    margin-top: 10px;
+}
 
-/****Navigation****/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+label,
+button {
+    font-family: Helvetica, Arial, "Century Gothic", sans-serif;
+    font-weight: 100;
+}
 
-nav {
-    button {
-        background-color: $grey;
-        padding: 15px;
-        display: block;
-        &:hover {
-            background-color: $grey-border;
-        }
-    }
+h1 {
+    font-size: 37px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
 }

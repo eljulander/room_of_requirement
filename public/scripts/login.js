@@ -10,9 +10,26 @@
             firebase.auth().signInWithRedirect(provider);
 
         } else {
+            localStorage.removeItem('ManagementAuthO');
             firebase.auth().signOut();
         }
         document.getElementById('quickstart-sign-in').disabled = true;
+    }
+
+    function setRole(uid, func) {
+        database.ref("users").once("value", function (snap) {
+            snap.forEach(function (csnap) {
+                if (csnap.key === uid) {
+                    if (!csnap.val().role) {
+                        func();
+                    } else {
+                        return;
+                    }
+                } else {
+                    return;
+                }
+            })
+        })
     }
 
     function initApp() {
@@ -20,6 +37,8 @@
             if (result.credential) {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 var token = result.credential.accessToken;
+                location.reload();
+                console.log(token);
             } else {
                 console.log('token null');
             }
@@ -48,12 +67,19 @@
                 }
 
                 document.getElementById('quickstart-sign-in').textContent = 'Sign out';
+
                 database.ref(`users/${authO.uid}`).update({
                     displayName: authO.displayName,
                     email: authO.email,
                     emailVerified: authO.emailVerified,
                     photoURL: authO.photoURL,
                     uid: authO.uid,
+                });
+
+                setRole(authO.uid, function() {
+                    database.ref(`users/${authO.uid}`).update({
+                        role: 0,
+                    });
                 });
 
                 localStorage["ManagementAuthO"] = JSON.stringify(authO);
@@ -66,6 +92,8 @@
         document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
     }
 
-    initApp();
+    window.onload = function () {
+        initApp();
+    }
 
 }())

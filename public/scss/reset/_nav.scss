@@ -1,0 +1,15 @@
+/****Navigation****/
+
+$grey: #efefef;
+$grey-border: #dcdcdc;
+
+nav {
+    button {
+        background-color: $grey;
+        padding: 15px;
+        display: block;
+        &:hover {
+            background-color: $grey-border;
+        }
+    }
+}
