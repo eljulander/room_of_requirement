@@ -29,7 +29,6 @@ database is a global variable
     /*
     Runs the data for the checked Modal
     */
-
     function userSelect() {
         var select = $("<select></select>");
 
@@ -47,19 +46,13 @@ database is a global variable
 
     function populateCheckout(cd, cn) {
 
-        console.log(corrData);
-
         var populate = $("#unassigned"),
-            container = $("<div id='assignmentContainer'></div>"),
-            courseNum = $(`<p><a href="${cd['Link']}">${cn}</a></p>`),
+            courseName = $(`<label><a target="_blank" href="${cd['Link']}">${corrData[cn]}</a></label>`),
             select = userSelect();
 
-        container.append(courseNum);
-        container.append(select);
+        courseName.append(select);
 
-        populate.append(container);
-
-        //        console.log(cd, cn);
+        populate.append(courseName);
     }
 
     function checked() {

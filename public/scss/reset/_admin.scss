@@ -21,14 +21,13 @@ h2 a[class] {
     top: 0;
     left: 0;
     z-index: 100;
-}
-
-.cancel {
-    cursor: pointer;
-    font-size: 25px;
-    position: relative;
-    left: 0;
-    top: 0;
+    .cancel {
+        cursor: pointer;
+        font-size: 25px;
+        position: relative;
+        left: 0;
+        top: 0;
+    }
 }
 
 #shade {
@@ -40,4 +39,15 @@ h2 a[class] {
     height: 20000px;
     z-index: 99;
     display: none;
+}
+
+#assignmentsFlex {
+    display: flex;
+    div{
+        margin-right: 50px;
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+    }
 }
