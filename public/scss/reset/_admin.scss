@@ -41,9 +41,34 @@ h2 a[class] {
     display: none;
 }
 
+#namePopup {
+    display: none;
+    position: fixed;
+    right: 300px;
+    top: 35%;
+    width: 200px;
+    height: auto;
+    background-color: #ddefff;
+    padding: 20px;
+    z-index: 100;
+}
+
+#assign {
+    border: 1px solid #626262;
+    padding: 5px;
+    background-color: #ffffff;
+}
+
+#empName {
+    cursor: pointer;
+    border: 1px solid #0F0F0F;
+    padding: 10px;
+    background-color: #F0F0F0;
+}
+
 #assignmentsFlex {
     display: flex;
-    div{
+    div {
         margin-right: 50px;
         label {
             margin-bottom: 10px;

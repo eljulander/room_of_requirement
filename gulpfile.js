@@ -52,6 +52,38 @@ gulp.task('scripts', function() {
         .pipe(livereload());
 });
 
+/*PRODUCTION with no sourcemaps*/
+gulp.task('stylesPro', function () {
+    console.log("styles task");
+    return gulp.src('public/scss/styles.scss')
+        .pipe(plumber(function (err) {
+            console.log("Styles Error " + err)
+            this.emit('end');
+        }))
+        .pipe(autoprefixer())
+        .pipe(sass({
+            outputStyle: 'compressed'
+        }))
+        .pipe(gulp.dest(DIST_PATH))
+        .pipe(livereload());
+});
+
+//Scripts
+gulp.task('scriptsPro', function() {
+    return gulp.src(['public/scripts/config.js','public/scripts/course_name.js', 'public/scripts/login.js', 'public/scripts/main.js', SCRIPTS_PATH])
+        .pipe(plumber(function(err) {
+            console.log('Scripts Task Error ' + err);
+            this.emit('end');
+        }))
+        .pipe(babel({
+            presets: ['es2015', 'react']
+        }))
+        .pipe(uglify())
+        .pipe(concat('scripts.js'))
+        .pipe(gulp.dest(DIST_PATH))
+        .pipe(livereload());
+});
+
 gulp.task('clean', function() {
     return del.sync([
         DIST_PATH
@@ -60,6 +92,13 @@ gulp.task('clean', function() {
 
 //General tasks
 gulp.task('default', ['clean', 'styles', 'scripts'], function () {
+    console.log("default task.");
+    return gulp.src('public/index.html')
+        .pipe(livereload());
+});
+
+//General tasks
+gulp.task('defaultPro', ['clean', 'stylesPro', 'scriptsPro'], function () {
     console.log("default task.");
     return gulp.src('public/index.html')
         .pipe(livereload());

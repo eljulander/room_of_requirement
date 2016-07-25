@@ -3,6 +3,8 @@ database is a global variable
 */
 (function () {
 
+    var loadedUsers = [];
+
     /*
     Events to handle modals
     */
@@ -12,6 +14,9 @@ database is a global variable
             "display": "block"
         })
         $(`#shade`).css({
+            "display": "block"
+        })
+        $(`#namePopup`).css({
             "display": "block"
         })
     });
@@ -24,33 +29,60 @@ database is a global variable
         $('#shade').css({
             "display": "none",
         })
+        $(`#namePopup`).css({
+            "display": "none"
+        })
     });
+
+    $("#assign").click(function (e) {
+        console.log("assign projects");
+    });
+
+    database.ref("users").once("value", function (snap) {
+        snap.forEach(function (csnap) {
+            var name = csnap.val().displayName;
+            loadedUsers.push(name);
+        })
+    });
+
+    function userSelect() {
+        var input = $("<input></input>");
+
+        input.keyup(function (e) {
+            $("#userNames").html("");
+
+            var inputVal = e.target.value,
+                selectedInput = e.target
+
+            for (var i = 0; i < loadedUsers.length; i++) {
+
+                if (loadedUsers[i].includes(inputVal)) {
+                    var para = $(`<p>${loadedUsers[i]}</p>`);
+
+                        para.attr("id", "empName")
+                            .click(function(e){
+//                                console.log(e.target.innerText);
+                                $(selectedInput).val(e.target.innerText);
+                            })
+
+                    $("#userNames").append(para);
+                }
+            }
+
+        });
+
+        return input;
+    }
 
     /*
     Runs the data for the checked Modal
     */
-    function userSelect() {
-        var select = $("<select></select>");
-
-        database.ref("users").once("value", function (snap) {
-            snap.forEach(function (csnap) {
-                var name = csnap.val().displayName,
-                    option = $(`<option>${name}</option>`);
-
-                select.append(option);
-            })
-        });
-
-        return select;
-    }
-
     function populateCheckout(cd, cn) {
-
         var populate = $("#unassigned"),
             courseName = $(`<label><a target="_blank" href="${cd['Link']}">${corrData[cn]}</a></label>`),
-            select = userSelect();
+            input = userSelect();
 
-        courseName.append(select);
+        courseName.append(input);
 
         populate.append(courseName);
     }
@@ -101,6 +133,7 @@ database is a global variable
         finished();
         dataSaved();
         timeSpent();
+        userSelect();
     }
 
 }());
