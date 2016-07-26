@@ -212,7 +212,8 @@ database is a global variable
     Script for coding the report graphs.
     */
 
-    document.querySelector(".stats").click();
+//    for development of chart graphs
+//    document.querySelector(".stats").click();
 
     /*Default settings for the two graphs*/
     var data = {
