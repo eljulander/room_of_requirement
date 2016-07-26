@@ -1,6 +1,7 @@
 var currentData = [];
 var coursesList = [];
 var userList = [];
+var isEnd = true;
 
 getCourseData();
 
@@ -26,22 +27,37 @@ function populateRoot(){
 }
 
 function addDirectory(id,name){
+
     $("article").append("<div id=\""+id+"\" onclick=\"addChain(this)\">"+name+"</div>");
+    isEnd = false;
+}
+
+function getParentID(){
+    console.log(directoryChain[directoryChain.length-1]);
+    return "[id='"+directoryChain[directoryChain.length-1]+'\']';
 }
 
 function addItem(id,name){
+
+     var tag = (isEnd)? getParentID() : "article";
+
     var data = name;
     var part = data.split(":");
+    try{
+        if(part[1].trim().substr(0,4) == "http")
+            data = part[0] + ": <a target=\"_blank\" href='"+part[1].trim()+":"+part[2]+"'>Go to  Course</a>";
+    }catch(e){}
 
-    if(part[1].trim().substr(0,4) == "http")
-        data = part[0] + ": <a target=\"_blank\" href='"+part[1].trim()+":"+part[2]+"'>Go to  Course</a>";
-
-    $("article").append("<div id=\""+id+"\">"+data+"</div>");
+    $(tag).append("<div id=\""+id+"\">"+data+"</div>");
 }
 
 function renderCurrentDirectory(){
+
+
     for(var i in currentData)
         typeof currentData[i] == 'object' ? addDirectory(i,i) : addItem(i,i+" : "+currentData[i]);
+
+
 }
 
 function lastDirectory(){
@@ -57,6 +73,12 @@ function addChain(element){
     nextDirectory();
 }
 
+function getFirst(object){
+    var first;
+    for(first in object)break;
+    return first;
+}
+
 function nextDirectory(){
     currentData = coursesList;
 
@@ -64,7 +86,11 @@ function nextDirectory(){
         currentData = currentData[directoryChain[i]];
     console.log(currentData);
 
+    isEnd = typeof currentData[getFirst(currentData)] != "object";
+
+    if(!isEnd)
     $("article").html("");
+
     renderCurrentDirectory();
 
 }
