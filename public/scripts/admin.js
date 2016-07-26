@@ -16,10 +16,13 @@ database is a global variable
         $(`#shade`).css({
             "display": "block"
         })
+    });
+
+    $(".checked").click(function(e) {
         $(`#namePopup`).css({
             "display": "block"
         })
-    });
+    })
 
     $(".cancel").click(function (e) {
         var parent = e.target.parentElement;
@@ -57,6 +60,7 @@ database is a global variable
 
     });
 
+    /*Load all the users from the database*/
     database.ref("users").once("value", function (snap) {
         snap.forEach(function (csnap) {
             var name = csnap.val().displayName;
@@ -64,6 +68,10 @@ database is a global variable
         })
     });
 
+    /*
+    The userSelect, uncheckout, populateCheck, and checked
+    are all used for the checkout feature.
+    */
     function userSelect() {
         var input = $("<input></input>");
 
@@ -117,13 +125,13 @@ database is a global variable
             database.ref(`users/${cd.checker}`).once("value", function (snap) {
                 var displayName = snap.val().displayName;
 
-                    courseName
-                        .append(`<p>${displayName}</p>`)
-                        .append(" &times;")
-                        .css({
-                            "cursor": "pointer"
-                        })
-                        .click(uncheckout);
+                courseName
+                    .append(`<p>${displayName}</p>`)
+                    .append(" &times;")
+                    .css({
+                        "cursor": "pointer"
+                    })
+                    .click(uncheckout);
             })
         }
 
@@ -145,7 +153,9 @@ database is a global variable
                     nothing = "There is nothing here!";
 
                 if (courseData["Content Pages"] !== nothing || courseData["Quizzes"] !== nothing) {
-                    !courseData.checker ? populateCheck(courseData, courseName, "unassigned") : populateCheck(courseData, courseName, "checkedOut");
+                    if (courseData.status === "Pending") {
+                        !courseData.checker ? populateCheck(courseData, courseName, "unassigned") : populateCheck(courseData, courseName, "checkedOut");
+                    }
                 }
             })
         })
@@ -153,10 +163,49 @@ database is a global variable
     }
 
     /*
-    Runs the data for the finished modal
+    Runs the data for the finished modal.  See which courses
+    have a "Student Approved" and a "Designer Approval"
+    on their status node in the database.
     */
+    function approved(e) {
+        var parentElement = e.target.parentElement,
+            courseID = parentElement.getAttribute("data-courseid");
+
+        database.ref(`Mark's Tool/${courseID}`).update({
+            status: "Designer Approved"
+        })
+
+        e.target.style.display = "none";
+    }
+
+    var statusFunctions = {
+        "Student Approved": function (cd, cn) {
+            var label = $(`<label data-courseID="${cn}"><a target="_blank" href="${cd['Link']}">${corrData[cn]}</a></label>`),
+                check = $(`<span>&#x2713;</span>`);
+
+            $(check)
+                .css({
+                    "cursor": "pointer"
+                })
+                .click(approved);
+
+            $(label)
+                .append(check);
+
+            $("#completed").append(label);
+        },
+        "Designer Approved": function (cd, cn) {
+            $("#approved").append(`<label data-courseID="${cn}"><a target="_blank" href="${cd['Link']}">${corrData[cn]}</a></label>`);
+        },
+    }
+
     function finished() {
-        console.log("finished");
+        database.ref("Mark's Tool").once("value", function (snap) {
+            snap.forEach(function (csnap) {
+                var courseData = csnap.val()
+                statusFunctions[courseData.status](courseData, csnap.key);
+            })
+        })
     }
 
     /*
