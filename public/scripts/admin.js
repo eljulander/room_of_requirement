@@ -16,10 +16,13 @@ database is a global variable
         $(`#shade`).css({
             "display": "block"
         })
+    });
+
+    $(".checked").click(function(e) {
         $(`#namePopup`).css({
             "display": "block"
         })
-    });
+    })
 
     $(".cancel").click(function (e) {
         var parent = e.target.parentElement;
