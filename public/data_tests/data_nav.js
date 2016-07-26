@@ -28,13 +28,13 @@ function populateRoot(){
 
 function addDirectory(id,name){
 
-    $("article").append("<div id=\""+id+"\" onclick=\"addChain(this)\">"+name+"</div>");
+    $("article").append("<div class=\"dir\" id=\""+id+"\" onclick=\"addChain(this)\">"+name+"</div>");
     isEnd = false;
 }
 
 function getParentID(){
     console.log(directoryChain[directoryChain.length-1]);
-    return "[id='"+directoryChain[directoryChain.length-1]+'\']';
+    return "[id=\""+directoryChain[directoryChain.length-1]+"\"]";
 }
 
 function addItem(id,name){
@@ -44,18 +44,51 @@ function addItem(id,name){
     var data = name;
     var part = data.split(":");
     try{
-        if(part[1].trim().substr(0,4) == "http")
+        if(isLink(part[1].trim()))
             data = part[0] + ": <a target=\"_blank\" href='"+part[1].trim()+":"+part[2]+"'>Go to  Course</a>";
     }catch(e){}
 
-    $(tag).append("<div id=\""+id+"\">"+data+"</div>");
+    $(tag).append("<div onclick = \"modify(this)\" class=\"item\" id=\""+id+"\">"+data+"</div>");
+    if(currentData[id] == "True")
+         document.getElementById(id).style = "background-color:#07a254";
 }
 
+function removeQuotes(word)
+{
+    var myWord = word,
+        replace = myWord.replace(/["]/g, "");
+    return replace;
+}
+
+function isLink(data){
+    return data.substr(0,4) == "http";
+}
+function modify(element){
+    var data = currentData[element.id];
+
+    console.log(data);
+
+    if(isLink(data)) window.open(data,"_blank");
+
+    if(data == "False"){
+        currentData[element.id] = "True";
+         element.innerText = "Checked : "+currentData[element.id];
+         element.style = "background-color:#07a254";
+    }
+    else if(data == "True"){
+        currentData[element.id] = "False";
+         element.innerText = "Checked : "+currentData[element.id];
+        element.style = "background-color:#a8b4b9";
+    }
+
+
+
+}
 function renderCurrentDirectory(){
 
 
     for(var i in currentData)
-        typeof currentData[i] == 'object' ? addDirectory(i,i) : addItem(i,i+" : "+currentData[i]);
+        typeof currentData[i] == 'object' ? addDirectory(removeQuotes(i),i) : addItem(removeQuotes(i),i+" : "+currentData[i]);
 
 
 }
@@ -69,6 +102,11 @@ function lastDirectory(){
 }
 
 function addChain(element){
+    if(isEnd){
+        if(element.id != directoryChain[directoryChain.length-1])
+            lastDirectory();
+        return
+    };
     directoryChain.push(element.id);
     nextDirectory();
 }
@@ -92,5 +130,9 @@ function nextDirectory(){
     $("article").html("");
 
     renderCurrentDirectory();
+
+}
+
+function checkForFalse(){
 
 }

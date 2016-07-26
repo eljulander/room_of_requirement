@@ -1,0 +1,33 @@
+article{
+    display: flex;
+    flex-flow: column;
+}
+
+.dir{
+    padding:1.5%;
+    border-radius:5px;
+    max-width:25%;
+    text-align: center;
+    background-color: #00a5e2;
+    border : 2px solid #626464;
+    margin:0.15%;
+}
+
+.item{
+    padding:1.5%;
+    border-radius:5px;
+    max-width:25%;
+    text-align: center;
+    background-color: #a8b4b9;
+    border : 2px solid #626464;
+    margin:0.05%;
+}
+
+.dir > .item{
+    margin:auto;
+    max-width:75%;
+}
+
+.item[text="Checked : True"]{
+    background-color: red;
+}
