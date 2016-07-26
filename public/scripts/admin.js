@@ -216,53 +216,67 @@ database is a global variable
 
     /*Default settings for the two graphs*/
     var data = {
-        datasets: [{
-            label: 'Scatter Dataset',
-            data: [{
-                x: -10,
-                y: 0
-            }, {
-                x: 0,
-                y: 10
-            }, {
-                x: 10,
-                y: 5
-            }]
-        }]
-    };
+            datasets: [{
+                    label: 'Data Saved',
+                    backgroundColor: "rgba(75,192,192,0.4)",
+                    borderColor: "rgba(33, 98, 98, 0.4)",
+                    data: [{
+                            x: -10,
+                            y: 0
+                        }, {
+                            x: 0,
+                            y: 10
+                        }, {
+                            x: 10,
+                            y: 5
+                        }]
+                    },
+                    {
+                    label: "Time Spent",
+                    backgroundColor: "rgba(23, 56, 234, 0.4)",
+                    borderColor: "rgba(0, 11, 72, 0.4)",
+                    data: [{
+                            x: -10,
+                            y: 1
+                        }, {
+                            x: 4,
+                            y: 10
+                        }, {
+                            x: 9,
+                            y: 5
+                        }]
+                    }]
+        },
+        options = {
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    type: 'linear',
+                    position: 'bottom',
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Months'
+                    }
+                    }],
+                yAxes: [{
+                    type: 'linear',
+                    position: 'left',
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Time Spent'
+                    }
+                }]
+            }
+        };
 
     /*Retrieve the data for amount of data saved*/
-    function dataSaved() {
+    function charts() {
         var ctx = $(".dataSaved"),
             myLineChart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                scales: {
-                    xAxes: [{
-                        type: 'linear',
-                        position: 'bottom'
-                    }]
-                }
-            }
-        });
-    }
-
-    /*Retrieve the data for amount of time spent*/
-    function timeSpent() {
-        var ctx = $(".timeSpent"),
-            myLineChart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                scales: {
-                    xAxes: [{
-                        type: 'linear',
-                        position: 'bottom'
-                    }]
-                }
-            }
-        });
+                type: 'line',
+                data: data,
+                options: options
+            });
     }
 
     /*
@@ -272,8 +286,7 @@ database is a global variable
     if (location.pathname.includes("admin")) {
         checked();
         finished();
-        dataSaved();
-        timeSpent();
+        charts();
         userSelect();
     }
 
