@@ -35,7 +35,26 @@ database is a global variable
     });
 
     $("#assign").click(function (e) {
-        console.log("assign projects");
+
+        var inputAssign = $("[data-courseid] > input"),
+            courseID = $("[data-courseid]"),
+            userName,
+            userData = JSON.parse(localStorage["ManagementAuthO"]);
+
+        $.each(courseID, function (i, va) {
+            var userName = inputAssign[i].value;
+
+            if (userName === userData.displayName) {
+                var courseID = $(va).attr("data-courseid");
+
+                database.ref(`Mark's Tool/${courseID}`).update({
+                    checker: userData.uid
+                });
+
+            }
+            inputAssign[i].value = "";
+        })
+
     });
 
     database.ref("users").once("value", function (snap) {
@@ -59,11 +78,10 @@ database is a global variable
                 if (loadedUsers[i].includes(inputVal)) {
                     var para = $(`<p>${loadedUsers[i]}</p>`);
 
-                        para.attr("id", "empName")
-                            .click(function(e){
-//                                console.log(e.target.innerText);
-                                $(selectedInput).val(e.target.innerText);
-                            })
+                    para.attr("id", "empName")
+                        .click(function (e) {
+                            $(selectedInput).val(e.target.innerText);
+                        })
 
                     $("#userNames").append(para);
                 }
@@ -74,13 +92,44 @@ database is a global variable
         return input;
     }
 
+    function uncheckout(e) {
+        var clickedElement = e.target,
+            courseID = $(clickedElement).attr("data-courseid");
+
+        database.ref(`Mark's Tool/${courseID}`).update({
+            checker: ""
+        })
+
+        $(e.target).css({
+            "display": "none",
+        })
+    }
+
     /*
     Runs the data for the checked Modal
     */
-    function populateCheckout(cd, cn) {
-        var populate = $("#unassigned"),
-            courseName = $(`<label><a target="_blank" href="${cd['Link']}">${corrData[cn]}</a></label>`),
+    function populateCheck(cd, cn, tar) {
+        var populate = $(`#${tar}`),
+            courseName = $(`<label data-courseID="${cn}"><a target="_blank" href="${cd['Link']}">${corrData[cn]}</a></label>`),
+            input;
+
+        if (cd.checker !== "" && tar === "checkedOut") {
+            database.ref(`users/${cd.checker}`).once("value", function (snap) {
+                var displayName = snap.val().displayName;
+
+                    courseName
+                        .append(`<p>${displayName}</p>`)
+                        .append(" &times;")
+                        .css({
+                            "cursor": "pointer"
+                        })
+                        .click(uncheckout);
+            })
+        }
+
+        if (tar === "unassigned") {
             input = userSelect();
+        }
 
         courseName.append(input);
 
@@ -89,14 +138,14 @@ database is a global variable
 
     function checked() {
 
-        database.ref("Mark's Tool").once("value", function (snap) {
+        database.ref("Mark's Tool").on("value", function (snap) {
             snap.forEach(function (csnap) {
                 var courseData = csnap.val(),
                     courseName = csnap.key,
                     nothing = "There is nothing here!";
 
                 if (courseData["Content Pages"] !== nothing || courseData["Quizzes"] !== nothing) {
-                    populateCheckout(courseData, courseName);
+                    !courseData.checker ? populateCheck(courseData, courseName, "unassigned") : populateCheck(courseData, courseName, "checkedOut");
                 }
             })
         })
