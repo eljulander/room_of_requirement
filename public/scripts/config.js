@@ -7,3 +7,19 @@ var config = {
 firebase.initializeApp(config);
 
 var database = firebase.database();
+
+
+
+/*
+Below is a set of query scripts to modify the database
+*/
+
+/*
+database.ref("Mark's Tool").once("value", function(snap){
+    snap.forEach(function (csnap){
+        database.ref(`Mark's Tool/${csnap.key}`).update({
+            data_saved: "",
+        })
+    })
+})
+*/
