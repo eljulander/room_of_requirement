@@ -42,12 +42,12 @@ function showDash(course){
     $("#"+course).append("<p class='completed'>Completed: "+completed+"<p>");
     $("#"+course).append(`<p>Link: <a href="${corrData[course]}">Go to Course</a><p>`);
 
-   /* $("#"+course+" .completed").on("click",function(e){
+    $("#"+course+" .completed").on("click",function(e){
         completed = (completed == "False") ? "True" : "False";
         var ref = `Mark's Tool/${course}/Completed`;
         $("#"+course+" .completed").text("Completed: "+completed);
         database.ref(ref).set(completed);
-    });*/
+    });
 
     for(var i in contentPages){
         addSection(i,course);
@@ -62,16 +62,8 @@ function showDash(course){
         }
     }
 
-    var allDone = true;
-    for(var i in lessons)
-        if(lessons[i].checked != "True")
-            allDone = false;
-    if(allDone){
-    var ref = `Mark's Tool/${course}/Completed`;
-        completed = allDone;
-        $("#"+course+" .completed").text("Completed: "+completed);
-        database.ref(ref).set(completed);
-    }
+
+
 
 }
 function removeSpaces(word){
@@ -105,6 +97,8 @@ function addLesson(lesson,id){
         $("#"+removeSpaces(lesson.name)+" .checked").text("Checked: "+lesson.checked);
         var ref = `Mark's Tool/${lesson.course}/Content Pages/${lesson.section}/${lesson.moduel}/${lesson.name}/Checked`;
       //  console.log(ref);
+        $("article").html("");
+        loaded = false;
         database.ref(ref).set(lesson.checked);
 
     });
