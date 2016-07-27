@@ -256,7 +256,7 @@ database is a global variable
                     position: 'left',
                     scaleLabel: {
                         display: true,
-                        labelString: 'Time Spent'
+                        labelString: ''
                     }
                 }]
             }
@@ -264,7 +264,7 @@ database is a global variable
 
     /*Retrieve the data for amount of data saved*/
     function charts() {
-        var ctx = $(".dataSaved"),
+        var ctx = $(".chart"),
             myLineChart = new Chart(ctx, {
                 type: 'line',
                 data: data,
