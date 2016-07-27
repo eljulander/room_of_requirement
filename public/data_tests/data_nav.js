@@ -27,8 +27,12 @@ function populateRoot(){
 }
 
 function addDirectory(id,name){
-
-    $("article").append("<div class=\"dir\" id=\""+id+"\" onclick=\"addChain(this)\">"+name+"</div>");
+    var style = "";
+    try{
+    if (coursesList[(directoryChain.length > 0) ? directoryChain[0] : id]["Completed"] == "True") style =  "background-color:#07a254"
+    console.log(style);
+    }catch(e){}
+    $("article").append("<div style=\""+ style +"\"class=\"dir\" id=\""+id+"\" onclick=\"addChain(this)\">"+name+"</div>");
     isEnd = false;
 }
 
@@ -43,14 +47,16 @@ function addItem(id,name){
 
     var data = name;
     var part = data.split(":");
+
     try{
         if(isLink(part[1].trim()))
             data = part[0] + ": <a target=\"_blank\" href='"+part[1].trim()+":"+part[2]+"'>Go to  Course</a>";
     }catch(e){}
 
     $(tag).append("<div onclick = \"modify(this)\" class=\"item\" id=\""+id+"\">"+data+"</div>");
-    if(currentData[id] == "True")
+    if(currentData[id] == "True"){
          document.getElementById(id).style = "background-color:#07a254";
+    }
 }
 
 function removeQuotes(word)
@@ -81,6 +87,10 @@ function modify(element){
         element.style = "background-color:#a8b4b9";
     }
 
+   if(directoryChain.length <= 2){
+    $("article").html("");
+    renderCurrentDirectory();
+   }
 
 
 }
