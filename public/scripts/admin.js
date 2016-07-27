@@ -60,14 +60,6 @@ database is a global variable
 
     });
 
-    /*Load all the users from the database*/
-    database.ref("users").once("value", function (snap) {
-        snap.forEach(function (csnap) {
-            var name = csnap.val().displayName;
-            loadedUsers.push(name);
-        })
-    });
-
     /*
     The userSelect, uncheckout, populateCheck, and checked
     are all used for the checkout feature.
@@ -285,6 +277,15 @@ database is a global variable
     all of the data with the administrator role.
     */
     if (location.pathname.includes("admin")) {
+
+        /*Load all the users from the database*/
+        database.ref("users").once("value", function (snap) {
+            snap.forEach(function (csnap) {
+                var name = csnap.val().displayName;
+                loadedUsers.push(name);
+            })
+        });
+
         checked();
         finished();
         charts();
