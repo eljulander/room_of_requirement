@@ -27,7 +27,7 @@ database is a global variable
     })
 
     $(".cancel").click(function (e) {
-        var parent = e.target.parentElement;
+        var parent = e.target.idment;
         $(parent).css({
             "display": "none",
         })
@@ -42,22 +42,27 @@ database is a global variable
     $("#assign").click(function (e) {
 
         var inputAssign = $("[data-courseid] > input"),
-            courseID = $("[data-courseid]"),
-            userName,
-            userData = JSON.parse(localStorage["ManagementAuthO"]);
+            usersList;
 
-        $.each(courseID, function (i, va) {
-            var userName = inputAssign[i].value;
+        $.each(inputAssign, function(i, val){
 
-            if (userName === userData.displayName) {
-                var courseID = $(va).attr("data-courseid");
+            var userName = val.value,
+                id = val.parentElement.getAttribute("data-courseid");
 
-                database.ref(`Mark's Tool/${courseID}`).update({
-                    checker: userData.uid
-                });
-            }
-            inputAssign[i].value = "";
+            database.ref("users").once("value", function(snap){
+                usersList = snap.val();
+
+                for (var i in usersList){
+                    if (usersList[i].displayName === userName) {
+                        database.ref(`Mark's Tool/${id}`).update({
+                            "checker": usersList[i].uid
+                        })
+                    }
+                }
+
+            })
         })
+
     });
 
     /*
@@ -160,8 +165,8 @@ database is a global variable
     on their status node in the database.
     */
     function approved(e) {
-        var parentElement = e.target.parentElement,
-            courseID = parentElement.getAttribute("data-courseid");
+        var idment = e.target.idment,
+            courseID = idment.getAttribute("data-courseid");
 
         database.ref(`Mark's Tool/${courseID}`).update({
             status: "Designer Approved"
@@ -220,7 +225,7 @@ database is a global variable
                     borderColor: "rgba(33, 98, 98, 0.4)",
                     data: dataSaved
                     },
-                    {
+                {
                     label: "Time Spent",
                     backgroundColor: "rgba(23, 56, 234, 0.4)",
                     borderColor: "rgba(0, 11, 72, 0.4)",
@@ -316,8 +321,8 @@ database is a global variable
         */
 
         /*DATA SAVED*/
-        database.ref("Mark's Tool").once("value", function(snap){
-            snap.forEach(function(csnap) {
+        database.ref("Mark's Tool").once("value", function (snap) {
+            snap.forEach(function (csnap) {
                 var courseData = csnap.val(),
                     dataSaved = courseData["data_saved"];
 
@@ -336,12 +341,12 @@ database is a global variable
 
 
         /*TIME GATHERER*/
-        database.ref("Mark's Tool").once("value", function(snap) {
-            snap.forEach(function(csnap) {
+        database.ref("Mark's Tool").once("value", function (snap) {
+            snap.forEach(function (csnap) {
                 var courseData = csnap.val(),
                     timeData = courseData["time_spent"];
 
-                for (var i in timeData){
+                for (var i in timeData) {
                     var timeData = +timeData[i].total,
                         numMonth = +i,
                         coor = {
@@ -349,7 +354,7 @@ database is a global variable
                             "y": timeData
                         };
 
-                timeSpent.push(coor);
+                    timeSpent.push(coor);
                 }
             })
         })
@@ -362,11 +367,11 @@ database is a global variable
     if (location.pathname.includes("admin")) {
 
         loadUsers();
-//        loadChartData();
+        //        loadChartData();
 
         checked();
         finished();
-//        charts();
+        //        charts();
         userSelect();
     }
 
