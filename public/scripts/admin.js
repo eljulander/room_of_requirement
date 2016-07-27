@@ -27,7 +27,7 @@ database is a global variable
     })
 
     $(".cancel").click(function (e) {
-        var parent = e.target.idment;
+        var parent = e.target.parentElement;
         $(parent).css({
             "display": "none",
         })
@@ -165,8 +165,8 @@ database is a global variable
     on their status node in the database.
     */
     function approved(e) {
-        var idment = e.target.idment,
-            courseID = idment.getAttribute("data-courseid");
+        var parentElement = e.target.parentElement,
+            courseID = parentElement.getAttribute("data-courseid");
 
         database.ref(`Mark's Tool/${courseID}`).update({
             status: "Designer Approved"
@@ -180,10 +180,12 @@ database is a global variable
             var label = $(`<label data-courseID="${cn}"><a target="_blank" href="${cd['Link']}">${corrData[cn]}</a></label>`),
                 check = $(`<span>&#x2713;</span>`);
 
+            /*
             Push.create('New Student Approval!', {
                 "body": `${corrData[cn]} is ready.`,
                 timeout: 7000
             })
+            */
 
             $(check)
                 .css({
@@ -204,8 +206,15 @@ database is a global variable
     function finished() {
         database.ref("Mark's Tool").once("value", function (snap) {
             snap.forEach(function (csnap) {
-                var courseData = csnap.val()
-                statusFunctions[courseData.status](courseData, csnap.key);
+                var courseData = csnap.val(),
+                    completed = courseData.Completed,
+                    status = courseData.status;
+
+                if (status === "Designer Approved") {
+                    statusFunctions[status](courseData, csnap.key);
+                } else if (completed === "True") {
+                    statusFunctions["Student Approved"](courseData, csnap.key);
+                }
             })
         })
     }
