@@ -7,9 +7,16 @@ getCourseData();
 
 function getCourseData(){
 
-    $.get("sample.json",function(e){
+  /*  $.get("sample.json",function(e){
         processData(e);
     });
+    */
+
+
+    database.ref().on("value",function(e){
+        processData(e.val());
+    });
+
 }
 
 var directoryChain = [];
@@ -94,10 +101,13 @@ function modify(element){
 
 
 }
+
+
 function renderCurrentDirectory(){
 
 
     for(var i in currentData)
+        if(currentData[i][0])
         typeof currentData[i] == 'object' ? addDirectory(removeQuotes(i),i) : addItem(removeQuotes(i),i+" : "+currentData[i]);
 
 
