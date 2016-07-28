@@ -294,15 +294,15 @@ database is a global variable
             populateCheck(data, dataName, "checkedOut")
         })
 
+        /*Load any finished or approved courses*/
         database.ref("Mark's Tool").once("value", function (snap) {
             snap.forEach(function (csnap) {
                 var courseData = csnap.val();
-                console.log(statusFunctions, courseData.status);
 
-                if (courseData.Completed === "True") {
+                if (courseData.status === "Designer Approved") {
+                    statusFunctions["Designer Approved"](courseData, csnap.key);
+                } else if (courseData.Completed === "True" || courseData.status === "Student Approved") {
                     statusFunctions["Student Approved"](courseData, csnap.key);
-                } else {
-                    statusFunctions[courseData.status](courseData, csnap.key);
                 }
             })
         })
