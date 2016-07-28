@@ -70,6 +70,7 @@ function removeQuotes(word)
 {
     var myWord = word,
         replace = myWord.replace(/["]/g, "");
+    replace = replace.replace(/[:]/g, "");
     return replace;
 }
 
