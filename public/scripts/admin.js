@@ -12,6 +12,13 @@ database is a global variable
     */
     $("a").click(function (e) {
         var classID = e.target.className;
+
+        if (classID === "checked") {
+            $(`#namePopup`).css({
+                "display": "block"
+            })
+        }
+
         $(`#${classID}`).css({
             "display": "block"
         })
@@ -20,27 +27,24 @@ database is a global variable
         })
     });
 
-    $(".checked").click(function (e) {
-        $(`#namePopup`).css({
-            "display": "block"
-        })
-    })
-
     $(".cancel").click(function (e) {
         var parent = e.target.parentElement;
+
+        $(`#namePopup`).css({
+            "display": "none"
+        })
+
         $(parent).css({
             "display": "none",
         })
         $('#shade').css({
             "display": "none",
         })
-        $(`#namePopup`).css({
-            "display": "none"
-        })
     });
 
     $("#assign").click(function (e) {
 
+<<<<<<< HEAD
         var inputAssign = $("[data-courseid] > input"),
             usersList;
 
@@ -60,6 +64,32 @@ database is a global variable
                     }
                 }
 
+=======
+        var inputAssign = $("[data-courseid] > input");
+
+        $.each(inputAssign, function (i, val) {
+            var studentAssignment = val.value,
+                courseID = val.parentElement.getAttribute("data-courseid");
+
+            database.ref(`users`).once("value", function (snap) {
+                var users = snap.val();
+
+                snap.forEach(function (csnap) {
+                    var user = csnap.val();
+                    if (studentAssignment === user.displayName) {
+                        var uid = csnap.key;
+
+                        database.ref(`Mark's Tool/${courseID}`).update({
+                            "checker": uid
+                        })
+
+                        console.log(val.parentElement)
+
+                        val.parentElement.style.display = "none";
+                    }
+                    inputAssign[i].value = "";
+                })
+>>>>>>> origin/master
             })
         })
 
@@ -101,11 +131,13 @@ database is a global variable
         var clickedElement = e.target,
             courseID = $(clickedElement).attr("data-courseid");
 
+        console.log(clickedElement, courseID, clickedElement.parentElement);
+
         database.ref(`Mark's Tool/${courseID}`).update({
             checker: ""
         })
 
-        $(e.target).css({
+        $(clickedElement).css({
             "display": "none",
         })
     }
@@ -139,24 +171,6 @@ database is a global variable
         courseName.append(input);
 
         populate.append(courseName);
-    }
-
-    function checked() {
-
-        database.ref("Mark's Tool").on("value", function (snap) {
-            snap.forEach(function (csnap) {
-                var courseData = csnap.val(),
-                    courseName = csnap.key,
-                    nothing = "There is nothing here!";
-
-                if (courseData["Content Pages"] !== nothing || courseData["Quizzes"] !== nothing) {
-                    if (courseData.status === "Pending") {
-                        !courseData.checker ? populateCheck(courseData, courseName, "unassigned") : populateCheck(courseData, courseName, "checkedOut");
-                    }
-                }
-            })
-        })
-
     }
 
     /*
@@ -203,6 +217,7 @@ database is a global variable
         },
     }
 
+<<<<<<< HEAD
     function finished() {
         database.ref("Mark's Tool").once("value", function (snap) {
             snap.forEach(function (csnap) {
@@ -219,6 +234,8 @@ database is a global variable
         })
     }
 
+=======
+>>>>>>> origin/master
     /*
     Script for coding the report graphs.
     */
@@ -232,13 +249,39 @@ database is a global variable
                     label: 'Data Saved',
                     backgroundColor: "rgba(75,192,192,0.4)",
                     borderColor: "rgba(33, 98, 98, 0.4)",
+<<<<<<< HEAD
                     data: dataSaved
+=======
+                    data: [{
+                        x: -10,
+                        y: 0
+                        }, {
+                        x: 0,
+                        y: 10
+                        }, {
+                        x: 10,
+                        y: 5
+                        }]
+>>>>>>> origin/master
                     },
                 {
                     label: "Time Spent",
                     backgroundColor: "rgba(23, 56, 234, 0.4)",
                     borderColor: "rgba(0, 11, 72, 0.4)",
+<<<<<<< HEAD
                     data: timeSpent
+=======
+                    data: [{
+                        x: -10,
+                        y: 1
+                        }, {
+                        x: 4,
+                        y: 10
+                        }, {
+                        x: 9,
+                        y: 5
+                        }]
+>>>>>>> origin/master
                     }]
         },
         options = {
@@ -378,9 +421,48 @@ database is a global variable
         loadUsers();
         //        loadChartData();
 
+<<<<<<< HEAD
         checked();
         finished();
         //        charts();
+=======
+        /*Load the checked out data*/
+        database.ref("Mark's Tool").on("child_added", function (csnap) {
+            var courseData = csnap.val(),
+                courseName = csnap.key,
+                nothing = "There is nothing here!";
+
+            if (courseData["Content Pages"] !== nothing || courseData["Quizzes"] !== nothing) {
+                if (courseData.status === "Pending") {
+                    courseData.checker ? populateCheck(courseData, courseName, "checkedOut") : populateCheck(courseData, courseName, "unassigned");
+                }
+            }
+        })
+
+        /*Load course data into checked out when child changed*/
+        database.ref("Mark's Tool").on("child_changed", function (snap) {
+            var data = snap.val(),
+                dataName = snap.key;
+            console.log("Occuring");
+
+            populateCheck(data, dataName, "checkedOut")
+        })
+
+        database.ref("Mark's Tool").once("value", function (snap) {
+            snap.forEach(function (csnap) {
+                var courseData = csnap.val();
+                console.log(statusFunctions, courseData.status);
+
+                if (courseData.Completed === "True") {
+                    statusFunctions["Student Approved"](courseData, csnap.key);
+                } else {
+                    statusFunctions[courseData.status](courseData, csnap.key);
+                }
+            })
+        })
+
+        charts();
+>>>>>>> origin/master
         userSelect();
     }
 
