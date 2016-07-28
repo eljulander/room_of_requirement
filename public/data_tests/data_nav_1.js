@@ -97,7 +97,7 @@ function addModuel(header,id){
 function addLesson(lesson,id){
    var div = "<div id="+removeSpaces(lesson.name)+">";
     div +="<h4>"+lesson.name+"</h4>";
-    div += "<p class='checked'>Checked: "+lesson.checked+"</p>";
+    div += `<p style ="${(lesson.checked == "True") ? "background:linear-gradient(to left, rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0), rgb(42, 150, 92))" : "background:linear-gradient(to left, rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),  rgba(255,0,0,.5))" } "class='checked'>Checked: ${lesson.checked}</p>`;
     div += "<p class='type'>Type: "+lesson.type+"</p>";
     div +="</div>";
     $("#"+removeSpaces(id)).append(div);
@@ -105,6 +105,7 @@ function addLesson(lesson,id){
     $("#"+removeSpaces(lesson.name)+" .checked").on("click",function(e){
        //console.log(lesson);
        lesson.checked  = (lesson.checked == "False") ? "True": "False";
+
         $("#"+removeSpaces(lesson.name)+" .checked").text("Checked: "+lesson.checked);
         var ref = `Mark's Tool/${lesson.course}/Content Pages/${lesson.section}/${lesson.moduel}/${lesson.name}/Checked`;
       //  console.log(ref);
