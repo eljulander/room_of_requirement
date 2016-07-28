@@ -3,7 +3,9 @@ database is a global variable
 */
 (function () {
 
-    var loadedUsers = [];
+    var loadedUsers = [],
+        timeSpent = [],
+        dataSaved;
 
     /*
     Events to handle modals
@@ -42,6 +44,27 @@ database is a global variable
 
     $("#assign").click(function (e) {
 
+<<<<<<< HEAD
+        var inputAssign = $("[data-courseid] > input"),
+            usersList;
+
+        $.each(inputAssign, function(i, val){
+
+            var userName = val.value,
+                id = val.parentElement.getAttribute("data-courseid");
+
+            database.ref("users").once("value", function(snap){
+                usersList = snap.val();
+
+                for (var i in usersList){
+                    if (usersList[i].displayName === userName) {
+                        database.ref(`Mark's Tool/${id}`).update({
+                            "checker": usersList[i].uid
+                        })
+                    }
+                }
+
+=======
         var inputAssign = $("[data-courseid] > input");
 
         $.each(inputAssign, function (i, val) {
@@ -66,6 +89,7 @@ database is a global variable
                     }
                     inputAssign[i].value = "";
                 })
+>>>>>>> origin/master
             })
         })
 
@@ -170,6 +194,13 @@ database is a global variable
             var label = $(`<label data-courseID="${cn}"><a target="_blank" href="${cd['Link']}">${corrData[cn]}</a></label>`),
                 check = $(`<span>&#x2713;</span>`);
 
+            /*
+            Push.create('New Student Approval!', {
+                "body": `${corrData[cn]} is ready.`,
+                timeout: 7000
+            })
+            */
+
             $(check)
                 .css({
                     "cursor": "pointer"
@@ -186,6 +217,25 @@ database is a global variable
         },
     }
 
+<<<<<<< HEAD
+    function finished() {
+        database.ref("Mark's Tool").once("value", function (snap) {
+            snap.forEach(function (csnap) {
+                var courseData = csnap.val(),
+                    completed = courseData.Completed,
+                    status = courseData.status;
+
+                if (status === "Designer Approved") {
+                    statusFunctions[status](courseData, csnap.key);
+                } else if (completed === "True") {
+                    statusFunctions["Student Approved"](courseData, csnap.key);
+                }
+            })
+        })
+    }
+
+=======
+>>>>>>> origin/master
     /*
     Script for coding the report graphs.
     */
@@ -199,6 +249,9 @@ database is a global variable
                     label: 'Data Saved',
                     backgroundColor: "rgba(75,192,192,0.4)",
                     borderColor: "rgba(33, 98, 98, 0.4)",
+<<<<<<< HEAD
+                    data: dataSaved
+=======
                     data: [{
                         x: -10,
                         y: 0
@@ -209,11 +262,15 @@ database is a global variable
                         x: 10,
                         y: 5
                         }]
+>>>>>>> origin/master
                     },
                 {
                     label: "Time Spent",
                     backgroundColor: "rgba(23, 56, 234, 0.4)",
                     borderColor: "rgba(0, 11, 72, 0.4)",
+<<<<<<< HEAD
+                    data: timeSpent
+=======
                     data: [{
                         x: -10,
                         y: 1
@@ -224,6 +281,7 @@ database is a global variable
                         x: 9,
                         y: 5
                         }]
+>>>>>>> origin/master
                     }]
         },
         options = {
@@ -258,12 +316,7 @@ database is a global variable
             });
     }
 
-    /*
-    Determine that the location is the admin page and load
-    all of the data with the administrator role.
-    */
-    if (location.pathname.includes("admin")) {
-
+    function loadUsers() {
         /*Load all the users from the database*/
         database.ref("users").once("value", function (snap) {
             snap.forEach(function (csnap) {
@@ -271,7 +324,108 @@ database is a global variable
                 loadedUsers.push(name);
             })
         });
+    }
 
+    function loadChartData() {
+
+        var months = [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sept",
+                "Oct",
+                "Nov",
+                "Dec"
+            ],
+            date = new Date(),
+            numDay = date.getDate(),
+            monthDig = date.getMonth(),
+            month = months[monthDig];
+
+
+        /*
+        TIME GATHERER DATA
+        {
+            "6": {
+                "label": "Jul"
+                "total": 456,
+                "entries": {
+                    "PUSH_ID": {
+                        "time": 24,
+                        "submitter": "Andrew"
+                    }
+                }
+            }
+        }
+
+        DATA SAVED
+        {
+            "data_saved": {
+                "month": "6",
+                "amount": ""
+            }
+        }
+        */
+
+        /*DATA SAVED*/
+        database.ref("Mark's Tool").once("value", function (snap) {
+            snap.forEach(function (csnap) {
+                var courseData = csnap.val(),
+                    dataSaved = courseData["data_saved"];
+
+                for (var i in dataSaved) {
+                    var month = +dataSaved[i].month,
+                        amount = +dataSaved[i].amount,
+                        coor = {
+                            "x": month,
+                            "y": amount
+                        };
+
+                    dataSaved.push(coor)
+                }
+            })
+        })
+
+
+        /*TIME GATHERER*/
+        database.ref("Mark's Tool").once("value", function (snap) {
+            snap.forEach(function (csnap) {
+                var courseData = csnap.val(),
+                    timeData = courseData["time_spent"];
+
+                for (var i in timeData) {
+                    var timeData = +timeData[i].total,
+                        numMonth = +i,
+                        coor = {
+                            "x": numMonth,
+                            "y": timeData
+                        };
+
+                    timeSpent.push(coor);
+                }
+            })
+        })
+    }
+
+    /*
+    Determine that the location is the admin page and load
+    all of the data with the administrator role.
+    */
+    if (location.pathname.includes("admin")) {
+
+        loadUsers();
+        //        loadChartData();
+
+<<<<<<< HEAD
+        checked();
+        finished();
+        //        charts();
+=======
         /*Load the checked out data*/
         database.ref("Mark's Tool").on("child_added", function (csnap) {
             var courseData = csnap.val(),
@@ -308,6 +462,7 @@ database is a global variable
         })
 
         charts();
+>>>>>>> origin/master
         userSelect();
     }
 
