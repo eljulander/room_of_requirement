@@ -13,8 +13,10 @@ database.ref().on("value", function(e){
 });
 
 
+
 var myData = [];
 function handleData(newData){
+
     data = newData["Mark's Tool"];
     userData = newData["users"];
 
@@ -27,7 +29,6 @@ function handleData(newData){
 
     }
     console.log(myData);
-
 }
 
 function showDash(course){

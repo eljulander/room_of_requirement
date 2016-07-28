@@ -1,6 +1,7 @@
 @import "./reset/_reset.scss";
 @import "./reset/_admin.scss";
 @import "./reset/_nav.scss";
+@import 'https://fonts.googleapis.com/css?family=Oswald';
 
 /****VARIABLES****/
 
@@ -24,8 +25,19 @@ article {
 
 }
 
+article * {
+    font-family: 'Oswald', sans-serif;
+}
+
 article{
     overflow-y: auto;
+
+    > div{
+        box-shadow: 5px 1px 25px;
+        max-width: 85%;
+        margin:auto;
+        background-color:#DEDFE1;
+    }
 
     h1{
         text-align: center;
@@ -33,7 +45,7 @@ article{
         font-size: 40px;
         color:#f5f5f5;
         background-color: #34547A;
-        padding:2.5%;
+        padding:3.5%;
         margin:0;
     }
     h2{
@@ -42,7 +54,7 @@ article{
         font-size: 25px;
         color:#f5f5f5;
         background-color: #49617D;
-        padding:1.2%;
+        padding:2.2%;
         margin:0;
     }
     h3{
@@ -52,7 +64,7 @@ article{
         font-weight: 400;
         color:#373737;
         background-color: #A0A8B2;
-        padding:1%;
+        padding:2%;
         margin:0;
 
 
@@ -61,7 +73,7 @@ article{
     h3 + div{
         p{
             text-align:center;
-            padding:1%;
+            padding:2%;
         }
         background-color:#DEDFE1;
     }
@@ -73,22 +85,28 @@ article{
         font-weight: 600;
         color:#373737;
         background-color: #DEDFE1;
-        padding:.5%;
+        padding:1.5%;
         margin:0;
+
+
     }
     > div{
         margin-bottom:5%;
         width:100%;
 
         > p{
-            padding:.92%;
+            padding:1%;
             text-align: center;
              background-color:#DEDFE1;
             cursor: pointer;
         }
 
         p{
+            cursor: pointer;
+        }
 
+        .type{
+            margin-bottom: 5%;
         }
 
     }
