@@ -43,28 +43,6 @@ database is a global variable
     });
 
     $("#assign").click(function (e) {
-
-<<<<<<< HEAD
-        var inputAssign = $("[data-courseid] > input"),
-            usersList;
-
-        $.each(inputAssign, function(i, val){
-
-            var userName = val.value,
-                id = val.parentElement.getAttribute("data-courseid");
-
-            database.ref("users").once("value", function(snap){
-                usersList = snap.val();
-
-                for (var i in usersList){
-                    if (usersList[i].displayName === userName) {
-                        database.ref(`Mark's Tool/${id}`).update({
-                            "checker": usersList[i].uid
-                        })
-                    }
-                }
-
-=======
         var inputAssign = $("[data-courseid] > input");
 
         $.each(inputAssign, function (i, val) {
@@ -89,7 +67,6 @@ database is a global variable
                     }
                     inputAssign[i].value = "";
                 })
->>>>>>> origin/master
             })
         })
 
@@ -217,25 +194,6 @@ database is a global variable
         },
     }
 
-<<<<<<< HEAD
-    function finished() {
-        database.ref("Mark's Tool").once("value", function (snap) {
-            snap.forEach(function (csnap) {
-                var courseData = csnap.val(),
-                    completed = courseData.Completed,
-                    status = courseData.status;
-
-                if (status === "Designer Approved") {
-                    statusFunctions[status](courseData, csnap.key);
-                } else if (completed === "True") {
-                    statusFunctions["Student Approved"](courseData, csnap.key);
-                }
-            })
-        })
-    }
-
-=======
->>>>>>> origin/master
     /*
     Script for coding the report graphs.
     */
@@ -249,9 +207,6 @@ database is a global variable
                     label: 'Data Saved',
                     backgroundColor: "rgba(75,192,192,0.4)",
                     borderColor: "rgba(33, 98, 98, 0.4)",
-<<<<<<< HEAD
-                    data: dataSaved
-=======
                     data: [{
                         x: -10,
                         y: 0
@@ -262,15 +217,11 @@ database is a global variable
                         x: 10,
                         y: 5
                         }]
->>>>>>> origin/master
                     },
-                {
+                    {
                     label: "Time Spent",
                     backgroundColor: "rgba(23, 56, 234, 0.4)",
                     borderColor: "rgba(0, 11, 72, 0.4)",
-<<<<<<< HEAD
-                    data: timeSpent
-=======
                     data: [{
                         x: -10,
                         y: 1
@@ -281,7 +232,6 @@ database is a global variable
                         x: 9,
                         y: 5
                         }]
->>>>>>> origin/master
                     }]
         },
         options = {
@@ -421,11 +371,6 @@ database is a global variable
         loadUsers();
         //        loadChartData();
 
-<<<<<<< HEAD
-        checked();
-        finished();
-        //        charts();
-=======
         /*Load the checked out data*/
         database.ref("Mark's Tool").on("child_added", function (csnap) {
             var courseData = csnap.val(),
@@ -448,21 +393,21 @@ database is a global variable
             populateCheck(data, dataName, "checkedOut")
         })
 
+        /*Load any finished or approved courses*/
         database.ref("Mark's Tool").once("value", function (snap) {
             snap.forEach(function (csnap) {
                 var courseData = csnap.val();
-                console.log(statusFunctions, courseData.status);
 
-                if (courseData.Completed === "True") {
+                if (courseData.status === "Designer Approved") {
+                    statusFunctions["Designer Approved"](courseData, csnap.key);
+                } else if (courseData.Completed === "True" || courseData.status === "Student Approved") {
                     statusFunctions["Student Approved"](courseData, csnap.key);
-                } else {
-                    statusFunctions[courseData.status](courseData, csnap.key);
                 }
             })
         })
 
         charts();
->>>>>>> origin/master
+
         userSelect();
     }
 
