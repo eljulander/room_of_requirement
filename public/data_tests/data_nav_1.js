@@ -98,7 +98,7 @@ function addModuel(header,id){
 function addLesson(lesson,id){
    var div = "<div id="+removeSpaces(lesson.name)+">";
     div +="<h4>"+lesson.name+"</h4>";
-    div += `<p style ="${(lesson.checked == "True") ? "background:linear-gradient(to left, rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0), rgb(42, 150, 92))" : "background:linear-gradient(to left, rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),  rgba(255,0,0,.5))" } "class='checked'>Checked: ${lesson.checked}</p>`;
+    div += `<p style ="${(lesson.checked == "True") ? "background:linear-gradient(to left, rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0), rgba(42, 150, 92,.4))" : "background:linear-gradient(to left, rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),  rgba(255,0,0,.2))" } "class='checked'>Checked: ${lesson.checked}</p>`;
     div += "<p class='type'>Type: "+lesson.type+"</p>";
     div +="</div>";
     $("#"+removeSpaces(id)).append(div);
