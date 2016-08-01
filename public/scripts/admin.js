@@ -123,6 +123,8 @@ database is a global variable
     Runs the data for the checked Modal
     */
     function populateCheck(cd, cn, tar) {
+        console.log(cd, cn, tar);
+
         var populate = $(`#${tar}`),
             courseName = $(`<label data-courseID="${cn}"><a target="_blank" href="${cd['Link']}">${corrData[cn]}</a></label>`),
             input;
@@ -218,7 +220,7 @@ database is a global variable
                         y: 5
                         }]
                     },
-                    {
+                {
                     label: "Time Spent",
                     backgroundColor: "rgba(23, 56, 234, 0.4)",
                     borderColor: "rgba(0, 11, 72, 0.4)",
@@ -376,6 +378,18 @@ database is a global variable
             var courseData = csnap.val(),
                 courseName = csnap.key,
                 nothing = "There is nothing here!";
+
+            console.log(courseData.status)
+
+            if (!courseData.status) {
+                database.ref(`Mark's Tool/${courseName}`).update({
+                    status: "Pending",
+                    time_spent: 0,
+                    Completed: "False",
+                    data_saved: 0,
+                    checker: ""
+                });
+            }
 
             if (courseData["Content Pages"] !== nothing || courseData["Quizzes"] !== nothing) {
                 if (courseData.status === "Pending") {
