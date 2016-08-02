@@ -10,7 +10,7 @@ database is a global variable
     /*
     Events to handle modals
     */
-    $("a").click(function (e) {
+    $("a").click((e) => {
         var classID = e.target.className;
 
         if (classID === "checked") {
@@ -27,7 +27,7 @@ database is a global variable
         })
     });
 
-    $(".cancel").click(function (e) {
+    $(".cancel").click((e) => {
         var parent = e.target.parentElement;
 
         $(`#namePopup`).css({
@@ -42,17 +42,17 @@ database is a global variable
         })
     });
 
-    $("#assign").click(function (e) {
+    $("#assign").click((e) => {
         var inputAssign = $("[data-courseid] > input");
 
-        $.each(inputAssign, function (i, val) {
+        $.each(inputAssign, (i, val) => {
             var studentAssignment = val.value,
                 courseID = val.parentElement.getAttribute("data-courseid");
 
-            database.ref(`users`).once("value", function (snap) {
+            database.ref(`users`).once("value", (snap) => {
                 var users = snap.val();
 
-                snap.forEach(function (csnap) {
+                snap.forEach((csnap) => {
                     var user = csnap.val();
                     if (studentAssignment === user.displayName) {
                         var uid = csnap.key;
@@ -79,7 +79,7 @@ database is a global variable
     function userSelect() {
         var input = $("<input></input>");
 
-        input.keyup(function (e) {
+        input.keyup((e) => {
             $("#userNames").html("");
 
             var inputVal = e.target.value,
@@ -123,14 +123,12 @@ database is a global variable
     Runs the data for the checked Modal
     */
     function populateCheck(cd, cn, tar) {
-        console.log(cd, cn, tar);
-
         var populate = $(`#${tar}`),
             courseName = $(`<label data-courseID="${cn}"><a target="_blank" href="${cd['Link']}">${corrData[cn]}</a></label>`),
             input;
 
         if (cd.checker !== "" && tar === "checkedOut") {
-            database.ref(`users/${cd.checker}`).once("value", function (snap) {
+            database.ref(`users/${cd.checker}`).once("value", (snap) => {
                 var displayName = snap.val().displayName;
 
                 courseName
@@ -169,7 +167,7 @@ database is a global variable
     }
 
     var statusFunctions = {
-        "Student Approved": function (cd, cn) {
+        "Student Approved": (cd, cn) => {
             var label = $(`<label data-courseID="${cn}"><a target="_blank" href="${cd['Link']}">${corrData[cn]}</a></label>`),
                 check = $(`<span>&#x2713;</span>`);
 
@@ -191,7 +189,7 @@ database is a global variable
 
             $("#completed").append(label);
         },
-        "Designer Approved": function (cd, cn) {
+        "Designer Approved": (cd, cn) => {
             $("#approved").append(`<label data-courseID="${cn}"><a target="_blank" href="${cd['Link']}">${corrData[cn]}</a></label>`);
         },
     }
@@ -270,8 +268,8 @@ database is a global variable
 
     function loadUsers() {
         /*Load all the users from the database*/
-        database.ref("users").once("value", function (snap) {
-            snap.forEach(function (csnap) {
+        database.ref("users").once("value", (snap) => {
+            snap.forEach((csnap) => {
                 var name = csnap.val().displayName;
                 loadedUsers.push(name);
             })
@@ -325,8 +323,8 @@ database is a global variable
         */
 
         /*DATA SAVED*/
-        database.ref("Mark's Tool").once("value", function (snap) {
-            snap.forEach(function (csnap) {
+        database.ref("Mark's Tool").once("value", (snap) => {
+            snap.forEach((csnap) => {
                 var courseData = csnap.val(),
                     dataSaved = courseData["data_saved"];
 
@@ -345,8 +343,8 @@ database is a global variable
 
 
         /*TIME GATHERER*/
-        database.ref("Mark's Tool").once("value", function (snap) {
-            snap.forEach(function (csnap) {
+        database.ref("Mark's Tool").once("value", (snap) => {
+            snap.forEach((csnap) => {
                 var courseData = csnap.val(),
                     timeData = courseData["time_spent"];
 
@@ -374,12 +372,10 @@ database is a global variable
         //        loadChartData();
 
         /*Load the checked out data*/
-        database.ref("Mark's Tool").on("child_added", function (csnap) {
+        database.ref("Mark's Tool").on("child_added", (csnap) => {
             var courseData = csnap.val(),
                 courseName = csnap.key,
                 nothing = "There is nothing here!";
-
-            console.log(courseData.status)
 
             if (!courseData.status) {
                 database.ref(`Mark's Tool/${courseName}`).update({
@@ -399,7 +395,7 @@ database is a global variable
         })
 
         /*Load course data into checked out when child changed*/
-        database.ref("Mark's Tool").on("child_changed", function (snap) {
+        database.ref("Mark's Tool").on("child_changed", (snap) => {
             var data = snap.val(),
                 dataName = snap.key;
             console.log("Occuring");
@@ -408,8 +404,8 @@ database is a global variable
         })
 
         /*Load any finished or approved courses*/
-        database.ref("Mark's Tool").once("value", function (snap) {
-            snap.forEach(function (csnap) {
+        database.ref("Mark's Tool").once("value", (snap) => {
+            snap.forEach((csnap) => {
                 var courseData = csnap.val();
 
                 if (courseData.status === "Designer Approved") {
