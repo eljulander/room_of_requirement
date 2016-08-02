@@ -72,6 +72,16 @@ database is a global variable
 
     });
 
+    function loadUsers() {
+        /*Load all the users from the database*/
+        database.ref("users").once("value", (snap) => {
+            snap.forEach((csnap) => {
+                var name = csnap.val().displayName;
+                loadedUsers.push(name);
+            })
+        });
+    }
+
     /*
     The userSelect, uncheckout, populateCheck, and checked
     are all used for the checkout feature.
@@ -82,12 +92,14 @@ database is a global variable
         input.keyup((e) => {
             $("#userNames").html("");
 
-            var inputVal = e.target.value,
+            var inputVal = e.target.value.toLowerCase(),
                 selectedInput = e.target
 
             for (var i = 0; i < loadedUsers.length; i++) {
 
-                if (loadedUsers[i].includes(inputVal)) {
+                var user = loadedUsers[i].toLowerCase();
+
+                if (user.includes(inputVal)) {
                     var para = $(`<p>${loadedUsers[i]}</p>`);
 
                     para.attr("id", "empName")
@@ -267,16 +279,6 @@ database is a global variable
                 data: data,
                 options: options
             });
-    }
-
-    function loadUsers() {
-        /*Load all the users from the database*/
-        database.ref("users").once("value", (snap) => {
-            snap.forEach((csnap) => {
-                var name = csnap.val().displayName;
-                loadedUsers.push(name);
-            })
-        });
     }
 
     function loadChartData() {
