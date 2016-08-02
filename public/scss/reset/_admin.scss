@@ -1,82 +1,78 @@
-h2 {
-    margin: 40px;
-}
-
-h2 a[class] {
-    text-decoration: none;
-    border: 1px solid #d9d6d6;
-    padding: 2px;
-    color: #7b98e4;
-    background-color: #ececec;
-}
-
-[data-modal] {
-    width: auto;
-    height: auto;
-    padding: 10px;
-    margin: 30px;
-    background-color: #e8e8e8;
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    .cancel {
-        cursor: pointer;
-        font-size: 25px;
-        position: relative;
-        left: 0;
-        top: 0;
+#admin {
+    font-family: Helvetica, "Century Gothic", sans-serif;
+    h2 {
+        margin: 40px;
+        font-size: 20px;
     }
-}
-
-#shade {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    background-color: rgba(10, 10, 10, 0.4);
-    width: 100%;
-    height: 20000px;
-    z-index: 99;
-    display: none;
-}
-
-#namePopup {
-    display: none;
-    position: fixed;
-    right: 300px;
-    top: 35%;
-    width: 200px;
-    height: auto;
-    background-color: #ddefff;
-    padding: 20px;
-    z-index: 100;
-}
-
-#assign {
-    border: 1px solid #626262;
-    padding: 5px;
-    background-color: #ffffff;
-}
-
-#empName {
-    cursor: pointer;
-    border: 1px solid #0F0F0F;
-    padding: 10px;
-    background-color: #F0F0F0;
-}
-
-#assignmentsFlex {
-    display: flex;
-    div {
-        margin-right: 50px;
-        label {
-            margin-bottom: 10px;
-            display: block;
+    h2 a[class] {
+        text-decoration: none;
+        border: 1px solid #d9d6d6;
+        padding: 2.5px;
+        color: #5f8afa;
+        background-color: #ececec;
+    }
+    [data-modal] {
+        width: auto;
+        height: auto;
+        padding: 10px;
+        margin: 30px;
+        background-color: #e8e8e8;
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        .cancel {
+            cursor: pointer;
+            font-size: 25px;
+            position: relative;
+            left: 0;
+            top: 0;
         }
     }
-}
-
-#chart {
-    width: 900px;
+    #shade {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        background-color: rgba(10, 10, 10, 0.4);
+        width: 100%;
+        height: 20000px;
+        z-index: 99;
+        display: none;
+    }
+    #namePopup {
+        display: none;
+        position: fixed;
+        right: 300px;
+        top: 35%;
+        width: 200px;
+        height: auto;
+        background-color: #ddefff;
+        padding: 20px;
+        z-index: 100;
+    }
+    #assign {
+        border: 1px solid #626262;
+        padding: 5px;
+        background-color: #ffffff;
+    }
+    #empName {
+        cursor: pointer;
+        border: 1px solid #0F0F0F;
+        padding: 10px;
+        background-color: #F0F0F0;
+    }
+    #assignmentsFlex {
+        display: flex;
+        div {
+            margin-right: 50px;
+            label {
+                margin-bottom: 10px;
+                display: block;
+            }
+        }
+    }
+    #chart {
+        width: 900px;
+    }
 }
