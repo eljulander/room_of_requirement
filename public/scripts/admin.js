@@ -10,7 +10,7 @@ database is a global variable
     /*
     Events to handle modals
     */
-    $("a").click((e) => {
+    $("a[href='#']").click((e) => {
         var classID = e.target.className;
 
         if (classID === "checked") {
@@ -125,19 +125,22 @@ database is a global variable
     function populateCheck(cd, cn, tar) {
         var populate = $(`#${tar}`),
             courseName = $(`<label data-courseID="${cn}"><a target="_blank" href="${cd['Link']}">${corrData[cn]}</a></label>`),
-            input;
+            input,
+            times = $("<p> &times;</p>");
 
         if (cd.checker !== "" && tar === "checkedOut") {
             database.ref(`users/${cd.checker}`).once("value", (snap) => {
                 var displayName = snap.val().displayName;
 
-                courseName
-                    .append(`<p>${displayName}</p>`)
-                    .append(" &times;")
+                times
                     .css({
                         "cursor": "pointer"
                     })
                     .click(uncheckout);
+
+                courseName
+                    .append(`<p>${displayName}</p>`)
+                    .append(times);
             })
         }
 
