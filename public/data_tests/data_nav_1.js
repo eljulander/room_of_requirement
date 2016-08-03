@@ -56,7 +56,7 @@ function showDash(course){
             addModuel(j,i);
             for(var k in contentPages[i][j]){
                 var ld = contentPages[i][j][k];
-                var newLesson = new lesson(course,i,j,k,ld["Type"],ld["Checked"]);
+                var newLesson = new lesson(course,i,j,k,ld["Type"],ld["Checked"],ld["Link"]);
                 addLesson(newLesson,j);
                 lessons.push(newLesson);
             }
@@ -99,6 +99,7 @@ function addLesson(lesson,id){
    var div = "<div id="+removeSpaces(lesson.name)+">";
     div +="<h4>"+lesson.name+"</h4>";
     div += `<p style ="${(lesson.checked == "True") ? "background:linear-gradient(to left, rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0),rgba(0,255,0,0), rgba(42, 150, 92,.4))" : "background:linear-gradient(to left, rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),rgba(255,0,0,0),  rgba(255,0,0,.2))" } "class='checked'>Checked: ${lesson.checked}</p>`;
+    div += "<p class='type'>Go to Page: <a href=\""+lesson.link+"\">"+lesson.name+"</a></p>";
     div += "<p class='type'>Type: "+lesson.type+"</p>";
     div +="</div>";
     $("#"+removeSpaces(id)).append(div);
@@ -120,13 +121,14 @@ function addLesson(lesson,id){
 
 
 
-function lesson(course,section, moduel, name, type, checked){
+function lesson(course,section, moduel, name, type, checked, link){
     this.course = course;
     this.section = section;
     this.moduel = moduel;
     this.name = name;
     this.type = type;
     this.checked = checked;
+    this.link = link;
 }
 
 
