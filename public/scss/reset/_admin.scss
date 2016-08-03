@@ -10,6 +10,18 @@
         padding: 2.5px;
         color: #5f8afa;
         background-color: #ececec;
+        &[class='checked']:active {
+            background-color: #cdcdcd;
+            border: 1px solid #f0eded;
+        }
+        &[class='finished']:active {
+            background-color: #cdcdcd;
+            border: 1px solid #f0eded;
+        }
+        &[class='stats']:active {
+            background-color: #cdcdcd;
+            border: 1px solid #f0eded;
+        }
     }
     [data-modal] {
         width: auto;
