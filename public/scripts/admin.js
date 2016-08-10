@@ -384,11 +384,6 @@ database is a global variable
                 courseName = csnap.key,
                 nothing = "There is nothing here!";
 
-<<<<<<< HEAD
-            console.log(courseData.status)
-
-=======
->>>>>>> 928f629451f93b803283105f7daf1f19d33e900b
             if (!courseData.status) {
                 database.ref(`Mark's Tool/${courseName}`).update({
                     status: "Pending",
